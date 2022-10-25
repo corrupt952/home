@@ -1,0 +1,10 @@
+---
+- hosts: control-plane
+  roles:
+  - kubernetes
+  - kubernetes-control-plane
+- hosts: workers
+  roles:
+  - kubernetes
+  # FIXME: Not idempotent
+  # - kubernetes-workers

@@ -1,0 +1,203 @@
+---
+- name: Apt
+  become: yes
+  block:
+  # The reason for updating /etc/apt/sources list.d/kubernetes.list first is that running Playbook on a device that already exists will result in an error if the key has been updated.
+ # FYI: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+  - name: Download gpg key for kubernetes packages
+    register: kubernetes_archive_keyring
+    ansible.builtin.get_url:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+  - name: Make kubernetes.list
+    when: kubernetes_archive_keyring.changed
+    ansible.builtin.shell:
+      cmd: >-
+        echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  - name: apt update
+    apt:
+      update_cache: yes
+  - name: Install packages via Apt
+    apt:
+      state: present
+      pkg:
+      - git
+      - wget
+      - curl
+      - apt-transport-https
+      - ca-certificates
+      - nfs-common
+
+- name: Configure timezone
+  become: yes
+  block:
+  - name: Create a symbolic link to /etc/localtime
+    file:
+      state: link
+      src: /usr/share/zoneinfo/Asia/Tokyo
+      dest: /etc/localtime
+
+- name: Configure hosts
+  become: yes
+  block:
+  - name: Copy to /etc/hosts
+    ansible.builtin.copy:
+      src: files/etc/hosts
+      dest: /etc/hosts
+      backup: yes
+
+- name: Swap configs
+  become: yes
+  block:
+  - name: Check for swap configuration
+    register: swap_conf
+    ansible.builtin.shell:
+      cmd: swapon -v
+    check_mode: false
+    changed_when: false
+  - name: Off swap
+    when: swap_conf.stdout != ''
+    shell: swapoff -a
+  - name: Disable swap
+    ansible.builtin.lineinfile:
+      path: /etc/fstab
+      regexp: '\sswap\s'
+      state: absent
+
+# FYI: https://kubernetes.io/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+- name: Configure iptables
+  become: yes
+  block:
+  - name: apt update
+    apt:
+      update_cache: yes
+  - name: Install iptables
+    apt:
+      state: present
+      pkg:
+      - iptables
+      - arptables
+      - ebtables
+  - name: Copy containerd module
+    register: containerd_module
+    ansible.builtin.copy:
+      src: files/etc/modules-load.d/containerd.conf
+      dest: /etc/modules-load.d/containerd.conf
+      backup: yes
+  - name: Enable overlay
+    when: containerd_module.changed
+    ansible.builtin.shell: modprobe overlay
+  - name: Enable br_netfilter
+    when: containerd_module.changed
+    ansible.builtin.shell: modprobe br_netfilter
+  - name: Copy kubernetes sysctl configuration
+    register: kubernetes_sysctl_configuration
+    ansible.builtin.copy:
+      src: files/etc/sysctl.d/kubernetes.conf
+      dest: /etc/sysctl.d/kubernetes.conf
+      backup: yes
+  - name: Just force sysctl to reread configs
+    when: kubernetes_sysctl_configuration.changed
+    ansible.builtin.shell: sysctl --system
+
+# FYI: https://github.com/containerd/containerd/blob/main/docs/getting-started.md
+- name: containerd
+  become: yes
+  block:
+  # /usr/local/bin/containerd
+  - name: Check for containerd
+    register: check_containerd
+    ansible.builtin.stat:
+      path: /usr/local/bin/containerd
+  - name: Download containerd
+    when: not check_containerd.stat.exists
+    ansible.builtin.get_url:
+      url: https://github.com/containerd/containerd/releases/download/v1.6.9/containerd-1.6.9-linux-amd64.tar.gz
+      dest: /tmp/containerd.tar.gz
+  - name: Unarchive containerd
+    when: not check_containerd.stat.exists
+    ansible.builtin.unarchive:
+      src: /tmp/containerd.tar.gz
+      dest: /usr/local
+      remote_src: yes
+  # /etc/containerd
+  - name: Make containerd configs directory
+    file:
+      state: directory
+      path: /etc/containerd
+  - name: Make containerd configs
+    when: not check_containerd.stat.exists
+    ansible.builtin.shell: containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
+  - name: Enable SystemdCgroup
+    when: not check_containerd.stat.exists
+    ansible.builtin.shell: sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+  # containerd.service
+  - name: Download containerd service
+    register: containerd_service
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
+      dest: /etc/systemd/system/containerd.service
+  - name: Just force systemd to reread configs
+    when: containerd_service.changed
+    ansible.builtin.systemd:
+      daemon_reload: yes
+  - name: Enable service containerd
+    when: containerd_service.changed
+    ansible.builtin.systemd:
+      name: containerd
+      state: started
+      enabled: yes
+
+- name: runc
+  become: yes
+  block:
+  # /usr/local/sbin/runc
+  - name: Check for runc
+    register: check_runc
+    ansible.builtin.stat:
+      path: /usr/local/sbin/runc
+  - name: Download runc
+    when: not check_runc.stat.exists
+    ansible.builtin.get_url:
+      url: https://github.com/opencontainers/runc/releases/download/v1.1.4/runc.amd64
+      dest: /tmp
+  - name: Install runc
+    when: not check_runc.stat.exists
+    ansible.builtin.command: install -m 755 /tmp/runc.amd64 /usr/local/sbin/runc
+
+- name: CNI plugins
+  become: yes
+  block:
+  - name: Check for CNI plugins
+    register: check_cni
+    ansible.builtin.stat:
+      path: /usr/local/bin/containerd
+  - name: Make /opt/cni/bin
+    when: not check_cni.stat.exists
+    file:
+      state: directory
+      path: /opt/cni/bin
+  - name: Download CNI plugins
+    when: not check_cni.stat.exists
+    register: cni_plugins
+    ansible.builtin.get_url:
+      url: https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz
+      dest: /tmp/cni-plugins.tgz
+  - name: Unarchive CNI plugins
+    when: cni_plugins.changed
+    ansible.builtin.unarchive:
+      src: /tmp/cni-plugins.tgz
+      dest: /opt/cni/bin
+      remote_src: yes
+
+# FYI: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+- name: kubeadm, kubelet, kubectl
+  become: yes
+  block:
+  - name: Install kubernetes packages
+    apt:
+      state: present
+      pkg:
+      - kubeadm
+      - kubelet
+      - kubectl
