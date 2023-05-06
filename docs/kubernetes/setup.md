@@ -1,69 +1,13 @@
-# Set up my home devices
+# Set up a kubernetes cluster
 
-## Requirements
-
-Before starting the setup, you need to do some preliminary preparation on your own PC.
-
-- Install [aqua](https://aquaproj.github.io/)
-- Install [ansible-playbook](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
-
-## Network architecture
-
-I have set up a home network using VLANs to separate personal and business subnets.  
-Although not shown in the figure, communication is not allowed between each subnet.
-
-```mermaid
-graph LR
-
-%% Definitions
-WAN
-subgraph Home
-    direction RL
-
-    ONU
-    Router
-
-    subgraph Personal["Personal Subnet(192.168.x.0/24)"]
-        direction TB
-        Smartphone
-        Laptop
-    end
-    subgraph Business["Business Subnet(192.168.y.0/24)"]
-        direction TB
-        BSmartphone[Smartphone for business]
-        BLaptop[Laptop for business]
-    end
-end
-
-%% Relations
-WAN ---> ONU
-ONU --> Router
-%% Personal
-Router -->|"🏠 Personal Traffic"| Personal
-Smartphone ~~~ Laptop
-%% Business
-Router -->|"🏢 Business Trafic"| Business
-BSmartphone ~~~ BLaptop
-```
-
-## Set up a router(Yamaha RTX1300)
-
-TBD
-
-## Set up a wireless router(Yamaha WLX222)
-
-TBD
-
-## Set up a kubernetes cluster
-
-### 1. Install Ubuntu to devices
+## 1. Install Ubuntu to devices
 
 Set up using CD, DVD, or USB installation media.  
 Set up with only minimal configuration, and set up SSH public keys to be obtained from GitHub.
 
 https://ubuntu.com/tutorials/install-ubuntu-server
 
-### 2. Configure static IP
+## 2. Configure static IP
 
 I want to fix the IP address before running Ansible, so set up `netplan`.
 
@@ -95,7 +39,7 @@ I want to fix the IP address before running Ansible, so set up `netplan`.
     sudo netplan apply
     ```
 
-### 3. Run playbooks
+## 3. Run playbooks
 
 Run `ansible-playbook` to set up each device.
 
@@ -136,6 +80,52 @@ Run `ansible-playbook` to set up each device.
     ansible-playbook site.yaml -i hosts -K
     ```
 
-### 4. Install Argo CD
+## 4. Install Argo CD
 
-https://github.com/corrupt952/home-apps
+1. Add repository for Argo projects
+
+    ```sh
+    helm repo add argo https://argoproj.github.io/argo-helm
+    ```
+
+1. Install Argo CD via Helm
+
+    ```sh
+    helm install argocd argo/argo-cd --create-namespace --namespace argocd
+    ```
+
+## 5. Create an Application
+
+1. You need access to the Argo CD so you can access it using Port Fowarding
+
+    ```sh
+    kubectl -n argocd port-forward deploy/argocd-server 8080:8080
+    ```
+
+1. Log in to Argo CD with `argocd` CLI
+
+    ```sh
+    argocd login \
+        --insecure \
+        --grpc-web \
+        --username admin \
+        --password "$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)" \
+        localhost:8080
+    ```
+
+1. Create an application(`argocd-config`)
+
+    ```sh
+    argocd app create argocd-config \
+        --insecure \
+        --grpc-web \
+        --repo https://github.com/corrupt952/home-apps.git \
+        --path argocd-config/base \
+        --dest-namespace argocd \
+        --dest-server https://kubernetes.default.svc \
+        --sync-policy automated \
+        --auto-prune \
+        --revision main
+    ```
+
+1. Access [localhost:8080](http://localhost:8080) and synchronize the `argocd-config` application 
