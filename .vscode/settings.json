@@ -1,0 +1,13 @@
+{
+  "cSpell.words": [
+    // Kubernetes
+
+    // Argo CD
+    "argocd",
+    "argoproj",
+    "finalizer",
+
+    // Cloudflare
+    "cloudflared",
+  ],
+}
