@@ -8,24 +8,24 @@ metadata:
 spec:
   project: default
   sources:
-    - ref: manifest
-      repoURL: https://github.com/corrupt952/home-apps
-    - path: wordpress/base
-      repoURL: https://github.com/corrupt952/home-apps
+    - ref: home
+      repoURL: https://github.com/corrupt952/home
+    - path: manifests/wordpress/base
+      repoURL: https://github.com/corrupt952/home
     - chart: mariadb
       repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 12.1.5
       helm:
         releaseName: mariadb
         valueFiles:
-        - $manifest/values/mariadb.yaml
+        - $home/manifests/values/mariadb.yaml
     - chart: wordpress
       repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 16.0.4
       helm:
         releaseName: wordpress
         valueFiles:
-        - $manifest/values/wordpress.yaml
+        - $home/manifests/values/wordpress.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: wordpress

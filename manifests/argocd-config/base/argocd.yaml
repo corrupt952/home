@@ -8,15 +8,15 @@ metadata:
 spec:
   project: default
   sources:
-    - ref: manifest
-      repoURL: https://github.com/corrupt952/home-apps
+    - ref: home
+      repoURL: https://github.com/corrupt952/home
     - chart: argo-cd
       repoURL: https://argoproj.github.io/argo-helm
       targetRevision: 5.32.0
       helm:
         releaseName: argocd
         valueFiles:
-        - $manifest/values/argocd.yaml
+        - $home/manifests/values/argocd.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: argocd
