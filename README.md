@@ -7,7 +7,7 @@ This repository manages the playbooks and manifests.
 - Router
     - TBD
 - Kubernetes
-    - Playbooks for devices
+    - Playbooks
     - Manifests
 
 ## Documentation
