@@ -1,0 +1,7 @@
+protocolHttp: 'true'
+
+extraArgs:
+- '--enable-skip-login'
+
+rbac:
+  clusterReadOnlyRole: 'true'
