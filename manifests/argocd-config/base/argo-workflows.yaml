@@ -13,6 +13,9 @@ spec:
       targetRevision: 0.26.0
       helm:
         releaseName: argo-workflows
+        parameters:
+        - name: server.extraArgs[0]
+          value: '--auth-mode=server'
   destination:
     server: "https://kubernetes.default.svc"
     namespace: argo
