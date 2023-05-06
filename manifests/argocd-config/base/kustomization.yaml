@@ -11,3 +11,4 @@ resources:
 - kubernetes-dashboard.yaml
 - cloudflared.yaml
 - wordpress.yaml
+- networks.yaml

@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: backup
+spec:
+  timezone: 'Asia/Tokyo'
+  schedule: "0 0 * * *"
+  concurrencyPolicy: "Allow"
+  startingDeadlineSeconds: 0
+  workflowSpec:
+    entrypoint: backup
+    templates:
+    - name: backup
+      volumes:
+      - name: scripts
+        configMap:
+          name: backup-scripts
+      container:
+        image: ubuntu:22.04
+        stdin: true
+        tty: true
+        envFrom:
+        - secretRef:
+            name: backup-credentials
+        volumeMounts:
+        - name: scripts
+          mountPath: /scripts
+        command:
+        - sh
+        - /scripts/backup.sh
