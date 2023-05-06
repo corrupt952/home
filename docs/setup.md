@@ -1,5 +1,12 @@
 # Set up my home devices
 
+## Requirements
+
+Before starting the setup, you need to do some preliminary preparation on your own PC.
+
+- Install [aqua](https://aquaproj.github.io/)
+- Install [ansible-playbook](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+
 ## Network architecture
 
 I have set up a home network using VLANs to separate personal and business subnets.  
@@ -48,13 +55,6 @@ TBD
 TBD
 
 ## Set up a kubernetes cluster
-
-### Requirements
-
-Before starting work, it is necessary to prepare in advance.
-
-- Install [aqua](https://aquaproj.github.io/)
-- Install [ansible-playbook](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
 ### 1. Install Ubuntu to devices
 
