@@ -6,4 +6,4 @@ TBD
 
 ## Setup
 
-[Set up the kubernetes cluster](/docs/networks/setup.md)
+[Set up the kubernetes cluster](/docs/kubernetes/setup.md)
