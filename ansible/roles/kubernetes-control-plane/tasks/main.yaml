@@ -30,11 +30,3 @@
       src: /etc/kubernetes/admin.conf
       dest: /root/.kube/config
       backup: yes
-
-- name: Configure kubelet
-  become: yes
-  block:
-  - name: Check control-plane nodes
-    when: not check_kubeadm.stat.exists
-    ansible.builtin.shell:
-      cmd: kubeadm init --pod-network-cidr=10.0.0.0/16
