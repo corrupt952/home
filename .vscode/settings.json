@@ -1,6 +1,26 @@
 {
   "cSpell.words": [
+    // Ansible
+    "lineinfile",
+
+    // Linux
+    "netplan",
+    "ethernets",
+    "arptables",
+    "ebtables",
+    "dpkg",
+    "localtime",
+    "zoneinfo",
+    "swapon",
+    "swapoff",
+
     // Kubernetes
+    "containerd",
+    "kubelet",
+    "kubeadm",
+    "br_netfilter",
+    "runc",
+    "keyrings",
 
     // Argo CD
     "argocd",

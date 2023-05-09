@@ -6,5 +6,3 @@
 - hosts: workers
   roles:
   - kubernetes
-  # FIXME: Not idempotent
-  # - kubernetes-workers

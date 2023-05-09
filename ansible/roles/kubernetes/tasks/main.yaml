@@ -198,6 +198,14 @@
     apt:
       state: present
       pkg:
-      - kubeadm
-      - kubelet
-      - kubectl
+      - kubelet={{ kubernetes_version }}
+      - kubeadm={{ kubernetes_version }}
+      - kubectl={{ kubernetes_version }}
+  - name: Hold kubernetes packages
+    ansible.builtin.dpkg_selections:
+      name: "{{ item }}"
+      selection: hold
+    with_items:
+    - kubelet
+    - kubeadm
+    - kubectl
