@@ -137,8 +137,8 @@ Run `ansible-playbook` to set up each device.
     argocd app create argocd-config \
         --insecure \
         --grpc-web \
-        --repo https://github.com/corrupt952/home-apps.git \
-        --path argocd-config/base \
+        --repo https://github.com/corrupt952/home.git \
+        --path manifests/argocd-config/base \
         --dest-namespace argocd \
         --dest-server https://kubernetes.default.svc \
         --sync-policy automated \
