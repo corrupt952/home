@@ -53,19 +53,20 @@ Run `ansible-playbook` to set up each device.
 
     ```yaml
     # e.g. hosts
-    [control-plane]
-    192.168.x.y
+    all:
+    vars:
+        ansible_ssh_user: ubuntu
+        ansible_ssh_private_key_file: ~/.ssh/private_key
+        additional_hosts:
+            control-plane.local: 192.168.x.y
 
-    [control-plane:vars]
-    ansible_ssh_user=john
-    ansible_ssh_private_key_file=~/.ssh/github
+    control-plane:
+        hosts:
+            192.168.x.y:
 
-    [workers]
-    192.168.x.z
-
-    [workers:vars]
-    ansible_ssh_user=john
-    ansible_ssh_private_key_file=~/.ssh/github
+    workers:
+        hosts:
+            192.168.x.z:
     ```
 
 1. Dry-run ansible-playbook
