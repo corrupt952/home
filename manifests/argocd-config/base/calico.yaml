@@ -1,0 +1,24 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: calico
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: calico
+    repoURL: https://docs.tigera.io/calico/charts
+    targetRevision: 3.25.1
+    helm:
+      releaseName: calico
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: tigera-operator
+  syncPolicy:
+    # syncOptions:
+    # - CreateNamespace=true
+    # automated:
+    #   prune: true
+    #   selfHeal: true
