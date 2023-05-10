@@ -27,7 +27,13 @@
     "argoproj",
     "finalizer",
 
+    // Sealed Secrets
+    "kubeseal",
+
     // Cloudflare
     "cloudflared",
+
+    // Calico
+    "tigera",
   ],
 }
