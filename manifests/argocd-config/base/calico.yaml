@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: calico
+    chart: tigera-operator
     repoURL: https://docs.tigera.io/calico/charts
-    targetRevision: v3.25.1
+    targetRevision: 3.25.1
     helm:
       releaseName: calico
   destination:
