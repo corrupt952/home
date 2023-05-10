@@ -2,6 +2,7 @@
   "cSpell.words": [
     // Ansible
     "lineinfile",
+    "endfor",
 
     // Linux
     "netplan",
@@ -13,6 +14,10 @@
     "zoneinfo",
     "swapon",
     "swapoff",
+    "localnet",
+    "mcastprefix",
+    "allnodes",
+    "allrouters",
 
     // Kubernetes
     "containerd",

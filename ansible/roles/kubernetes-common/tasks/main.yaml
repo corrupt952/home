@@ -17,6 +17,7 @@
   - name: apt update
     apt:
       update_cache: yes
+      cache_valid_time: "{{ apt.cache_valid_time }}"
   - name: Install packages via Apt
     apt:
       state: present
@@ -40,9 +41,9 @@
 - name: Configure hosts
   become: yes
   block:
-  - name: Copy to /etc/hosts
-    ansible.builtin.copy:
-      src: files/etc/hosts
+  - name: Set /etc/hosts
+    ansible.builtin.template:
+      src: files/etc/hosts.j2
       dest: /etc/hosts
       backup: yes
 
@@ -68,9 +69,6 @@
 - name: Configure iptables
   become: yes
   block:
-  - name: apt update
-    apt:
-      update_cache: yes
   - name: Install iptables
     apt:
       state: present
@@ -198,9 +196,9 @@
     apt:
       state: present
       pkg:
-      - kubelet={{ kubernetes_version }}
-      - kubeadm={{ kubernetes_version }}
-      - kubectl={{ kubernetes_version }}
+      - kubelet={{ kubernetes.version }}
+      - kubeadm={{ kubernetes.version }}
+      - kubectl={{ kubernetes.version }}
   - name: Hold kubernetes packages
     ansible.builtin.dpkg_selections:
       name: "{{ item }}"
