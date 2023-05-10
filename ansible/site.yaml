@@ -1,8 +1,11 @@
 ---
+- hosts: nfs-server
+  roles:
+  - nfs-server
 - hosts: control-plane
   roles:
-  - kubernetes
+  - kubernetes-common
   - kubernetes-control-plane
 - hosts: workers
   roles:
-  - kubernetes
+  - kubernetes-common
