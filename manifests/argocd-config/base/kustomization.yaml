@@ -12,3 +12,4 @@ resources:
 - cloudflared.yaml
 - wordpress.yaml
 - networks.yaml
+- metrics-server.yaml
