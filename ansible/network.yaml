@@ -1,0 +1,6 @@
+# Network
+- hosts: rtx1300
+  connection: network_cli
+  gather_facts: false
+  roles:
+  - rtx1300
