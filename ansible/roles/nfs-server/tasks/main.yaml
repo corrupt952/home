@@ -5,7 +5,7 @@
   - name: apt update
     apt:
       update_cache: yes
-      cache_valid_time: "{{ apt.cache_valid_time }}"
+      cache_valid_time: "{{ homeLab.apt.cache_valid_time }}"
   - name: Install packages via Apt
     apt:
       state: present

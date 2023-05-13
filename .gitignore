@@ -1,5 +1,6 @@
 hosts
 !**/roles/**/hosts
+.vault-password
 
 # Created by https://www.toptal.com/developers/gitignore/api/ansible,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=ansible,visualstudiocode

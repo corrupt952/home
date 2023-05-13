@@ -8,6 +8,6 @@ ff00::0 ip6-mcastprefix
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
-{% for host, ip in additional_hosts.items() %}
+{% for host, ip in homeLab.kubernetes.additional_hosts.items() %}
 {{ ip }} {{ host }}
 {% endfor %}

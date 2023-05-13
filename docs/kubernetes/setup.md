@@ -45,40 +45,20 @@ Run `ansible-playbook` to set up each device.
 
 1. Move to `ansible` directory
 
-    ```
+    ```sh
     cd ansible
     ```
 
-1. Download `hosts` from 1Password
+1. Make `.vault-password` with a written password for ansible-vault
 
-    ```yaml
-    # e.g. hosts
-    all:
-      vars:
-        ansible_ssh_user: ubuntu
-        ansible_ssh_private_key_file: ~/.ssh/github
-        additional_hosts:
-          control-plane.local: 192.168.x.y
-        apt:
-          cache_valid_time: 86400 # 1day
-        home:
-          network:
-            cidr: 192.168.x.0/24
-        nfs:
-          path: /mnt/share/nfs
-        kubernetes:
-      version: "1.25.4-00"
-      network:
-        cidr: "10.0.0.0/16"
-    nfs-server:
-      hosts:
-        192.168.x.w:
-    control-plane:
-      hosts:
-        192.168.x.y:
-    workers:
-      hosts:
-        192.168.x.z:
+    ```sh
+    echo -n "$VAULT_PASSWORD" > .vault-password
+    ```
+
+1. Decrypt `hosts.enc`
+
+    ```sh
+    ansible-vault decrypt --output hosts hosts.enc
     ```
 
 1. Dry-run ansible-playbook

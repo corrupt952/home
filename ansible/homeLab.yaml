@@ -1,0 +1,14 @@
+---
+# Homelab
+- hosts: nfs-server
+  roles:
+  - nfs-server
+
+# Kubernetes
+- hosts: kubernetes-control-plane
+  roles:
+  - kubernetes-common
+  - kubernetes-control-plane
+- hosts: kubernetes-workers
+  roles:
+  - kubernetes-common
