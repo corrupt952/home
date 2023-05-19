@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: revealer
-          image: ghcr.io/corrupt952/revealer:v0.0.1
+          image: ghcr.io/corrupt952/revealer:v0.1.0
           env:
           - name: PORT
             value: "8080"
