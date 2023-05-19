@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: revealer
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+  - path: manifests/revealer/base
+    repoURL: https://github.com/corrupt952/home
+    targetRevision: develop/revealer
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: revealer
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
