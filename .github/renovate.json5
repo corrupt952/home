@@ -29,6 +29,7 @@
   "kubernetes": {
     "fileMatch": [
       "manifests/cloudflared/base/.*\\.yaml",
+      "manifests/revealer/base/.*\\.yaml",
     ],
   },
 }
