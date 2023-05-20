@@ -16,6 +16,10 @@ spec:
       - name: playbooks
         configMap:
           name: backup-playbooks
+      outputs:
+        artifacts:
+          - name: config.txt
+            path: /home/ansible/config.txt
       container:
         image: ghcr.io/corrupt952/home/ansible:85f40b4ceff32b809d507d234920ce45b2303a60
         env:
