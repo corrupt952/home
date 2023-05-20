@@ -37,5 +37,4 @@ jobs:
           push: true
           tags: |-
             ghcr.io/corrupt952/home/${{ matrix.container }}:${{ github.sha }},
-            ghcr.io/corrupt952/home/${{ matrix.container }}:${{ github.ref_name }},
             ghcr.io/corrupt952/home/${{ matrix.container }}:latest
