@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: backup-scripts
+  name: backup-playbooks
 data:
   backup.yaml: |
     ---

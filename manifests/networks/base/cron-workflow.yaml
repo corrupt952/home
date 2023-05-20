@@ -13,9 +13,9 @@ spec:
     templates:
     - name: backup
       volumes:
-      - name: scripts
+      - name: playbooks
         configMap:
-          name: backup-scripts
+          name: backup-playbooks
       container:
         image: ghcr.io/corrupt952/home/ansible:85f40b4ceff32b809d507d234920ce45b2303a60
         env:
@@ -25,8 +25,8 @@ spec:
         - secretRef:
             name: backup-credentials
         volumeMounts:
-        - name: scripts
-          mountPath: /scripts
+        - name: playbooks
+          mountPath: /playbooks
         command:
         - bash
         - -lc
@@ -36,5 +36,5 @@ spec:
             ansible-playbook
             --ssh-common-args="-o StrictHostKeyChecking=no"
             -e "ansible_user=$BACKUP_USERNAME ansible_ssh_pass=$BACKUP_PASSWORD"
-            -i "$BACKUP_HOST,"
-            /scripts/backup.yaml
+            -i "$BACKUP_HOSTNAME,"
+            /playbooks/backup.yaml
