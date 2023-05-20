@@ -46,7 +46,7 @@ spec:
             s3:
               endpoint: s3.dualstack.ap-northeast-1.amazonaws.com
               bucket: khasegawa-home
-              key: routers/rtx1300/config.txt
+              key: backup/routers/rtx1300/config.txt
               accessKeySecret:
                 name: backup-credentials
                 key: BACKUP_AWS_ACCESS_KEY_ID
