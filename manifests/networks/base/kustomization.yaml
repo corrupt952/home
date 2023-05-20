@@ -5,4 +5,5 @@ namespace: networks
 resources:
 - config-map.yaml
 - sealed-secret.yaml
+- service-account.yaml
 - cron-workflow.yaml

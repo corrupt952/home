@@ -12,6 +12,7 @@ spec:
     entrypoint: backup
     templates:
     - name: backup
+      serviceAccountName: backup
       volumes:
       - name: playbooks
         configMap:
