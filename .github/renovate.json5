@@ -28,8 +28,12 @@
   },
   "kubernetes": {
     "fileMatch": [
-      "manifests/cloudflared/base/.*\\.yaml",
-      "manifests/revealer/base/.*\\.yaml",
+      "manifests/.*/base/.*\\.yaml",
+    ],
+  },
+  "docker": {
+    "fileMatch": [
+      "containers/.*/Dockerfile",
     ],
   },
 }
