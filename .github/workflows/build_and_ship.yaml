@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop/ansible-images #FIXME:
 
 jobs:
   set-matrix:
