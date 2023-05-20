@@ -10,7 +10,6 @@ spec:
   sources:
     - path: manifests/networks/base
       repoURL: https://github.com/corrupt952/home
-      targetRevision: develop/use-ansible-image
   destination:
     server: "https://kubernetes.default.svc"
     namespace: networks
