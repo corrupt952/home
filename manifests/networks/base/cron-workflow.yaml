@@ -29,7 +29,7 @@ spec:
           mountPath: /scripts
         workingDir: /scripts
         command:
-        - ansible-playbook
+        - $HOME/.local/bin/ansible-playbook
         - --ssh-common-args="-o StrictHostKeyChecking=no"
         - -e "ansible_user=$BACKUP_USERNAME ansible_ssh_pass=$BACKUP_PASSWORD"
         # NOTE: When specifying an IP address directly in the i option,

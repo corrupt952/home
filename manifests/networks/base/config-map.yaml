@@ -6,7 +6,7 @@ metadata:
 data:
   backup.yaml: >-
     ---
-    - hosts: RTX1300
+    - hosts: all
       connection: network_cli
       vars:
         ansible_network_os: yamaha_network.rtx.rtx
@@ -16,8 +16,11 @@ data:
             commands:
             - show config
           register: result
-        - name: Save config to file
+        - name: Copy output to file
           ansible.builtin.copy:
             content: "{{ result.stdout[0] }}"
             dest: "config.txt"
         - name: Print config
+          ansible.builtin.debug:
+            msg:
+              - "{{ result.stdout[0] }}"
