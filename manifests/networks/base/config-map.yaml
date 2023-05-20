@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: backup-scripts
 data:
-  backup.yaml: >-
+  backup.yaml: |
     ---
     - hosts: all
       connection: network_cli
