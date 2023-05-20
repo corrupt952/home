@@ -17,15 +17,22 @@ spec:
         configMap:
           name: backup-scripts
       container:
-        image: ubuntu:22.04
-        stdin: true
-        tty: true
+        image: ghcr.io/corrupt952/home/ansible:85f40b4ceff32b809d507d234920ce45b2303a60
+        env:
+          - name: ANSIBLE_HOST_KEY_CHECKING
+            value: "False"
         envFrom:
         - secretRef:
             name: backup-credentials
         volumeMounts:
         - name: scripts
           mountPath: /scripts
+        workingDir: /scripts
         command:
-        - sh
-        - /scripts/backup.sh
+        - ansible-playbook
+        - --ssh-common-args="-o StrictHostKeyChecking=no"
+        - -e "ansible_user=$BACKUP_USERNAME ansible_ssh_pass=$BACKUP_PASSWORD"
+        # NOTE: When specifying an IP address directly in the i option,
+        #       a trailing comma is used to treat it as an IP address instead of a file.
+        - -i "$BACKUP_HOST,"
+        - /scripts/backup.yaml

@@ -4,26 +4,20 @@ kind: ConfigMap
 metadata:
   name: backup-scripts
 data:
-  backup.sh: |
-    #!/bin/bash -Ceuo pipefail
-
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update -qq
-    apt-get install -qq --no-install-recommends expect openssh-client >/dev/null
-
-    echo "Connecting $BACKUP_USERNAME@$BACKUP_HOSTNAME"
-    expect <<EOF >/tmp/result.txt
-    set timeout 10
-    spawn ssh $BACKUP_USERNAME@$BACKUP_HOSTNAME
-    expect "(yes/no"
-    send "yes\r"
-    expect "password: "
-    send "$BACKUP_PASSWORD\r"
-    expect "> "
-    send "show config\r"
-    expect "> "
-    send "exit\r"
-    expect eof
-    EOF
-
-    sed -n '/> show config/,/> exit/{/> show config/!{/> exit/!p}}' /tmp/result.txt
+  backup.yaml: >-
+    ---
+    - hosts: RTX1300
+      connection: network_cli
+      vars:
+        ansible_network_os: yamaha_network.rtx.rtx
+      tasks:
+        - name: get configuration
+          yamaha_network.rtx.rtx_command:
+            commands:
+            - show config
+          register: result
+        - name: Save config to file
+          ansible.builtin.copy:
+            content: "{{ result.stdout[0] }}"
+            dest: "config.txt"
+        - name: Print config
