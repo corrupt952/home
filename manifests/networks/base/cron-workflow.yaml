@@ -27,12 +27,14 @@ spec:
         volumeMounts:
         - name: scripts
           mountPath: /scripts
-        workingDir: /scripts
         command:
-        - $HOME/.local/bin/ansible-playbook
-        - --ssh-common-args="-o StrictHostKeyChecking=no"
-        - -e "ansible_user=$BACKUP_USERNAME ansible_ssh_pass=$BACKUP_PASSWORD"
+        - bash
+        - -lc
         # NOTE: When specifying an IP address directly in the i option,
         #       a trailing comma is used to treat it as an IP address instead of a file.
-        - -i "$BACKUP_HOST,"
-        - /scripts/backup.yaml
+        - |
+          ansible-playbook
+            --ssh-common-args="-o StrictHostKeyChecking=no"
+            -e "ansible_user=$BACKUP_USERNAME ansible_ssh_pass=$BACKUP_PASSWORD"
+            -i "$BACKUP_HOST,"
+           /scripts/backup.yaml
