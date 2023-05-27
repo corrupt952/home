@@ -2,3 +2,6 @@ global:
   storageClass: nfs-client
 
 architecture: standalone
+
+auth:
+  enabled: false
