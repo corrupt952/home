@@ -1,1 +1,4 @@
+global:
+  storageClass: nfs-client
+
 architecture: standalone
