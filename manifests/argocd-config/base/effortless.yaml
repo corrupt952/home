@@ -1,0 +1,38 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: effortless
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - ref: home
+      repoURL: https://github.com/corrupt952/home
+      targetRevision: develop/effortless
+    # - path: manifests/effortless/base
+    #   repoURL: https://github.com/corrupt952/home
+    - chart: postgresql
+      repoURL: https://charts.bitnami.com/bitnami
+      targetRevision: 12.5.5
+      helm:
+        releaseName: postgresql
+        # valueFiles:
+        # - $home/manifests/values/mariadb.yaml
+    # - chart: effortless
+    #   repoURL: https://charts.bitnami.com/bitnami
+    #   targetRevision: 16.1.6
+    #   helm:
+    #     releaseName: effortless
+    #     valueFiles:
+    #     - $home/manifests/values/effortless.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: effortless
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
