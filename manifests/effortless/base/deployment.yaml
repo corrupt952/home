@@ -7,18 +7,16 @@ spec:
   replicas: 1
   template:
     spec:
+      imagePullSecrets:
+      - name: ghcr-credentials
       containers:
         - name: frontend
           image: ghcr.io/corrupt952/effortless/frontend:896c8edb6e145013d6dbff569b8ced3dd0752f99
-          imagePullSecrets:
-            - name: ghcr-credentials
           ports:
             - name: frontend-http
               containerPort: 80
         - name: backend
           image: ghcr.io/corrupt952/effortless/backend:896c8edb6e145013d6dbff569b8ced3dd0752f99
-          imagePullSecrets:
-            - name: ghcr-credentials
           args:
           - bundle
           - exec
