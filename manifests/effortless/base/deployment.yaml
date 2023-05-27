@@ -37,6 +37,8 @@ spec:
               value: effortless
             - name: REDIS_HOST
               value: redis-master.effortless.svc.cluster.local
+            - name: GOOGLE_CLIENT_ID
+              value: 1091821800471-a0nkacmcrk7qa5egvqk0rbk308q62r95.apps.googleusercontent.com
           envFrom:
             - secretRef:
                 name: effortless-credentials
