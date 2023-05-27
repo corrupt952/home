@@ -26,8 +26,8 @@ spec:
       targetRevision: 17.11.3
       helm:
         releaseName: redis
-        # valueFiles:
-        # - $home/manifests/values/redis.yaml
+        valueFiles:
+        - $home/manifests/values/redis.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: effortless
