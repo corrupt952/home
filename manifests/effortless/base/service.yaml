@@ -6,5 +6,8 @@ metadata:
 spec:
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: http
+      port: 10080
+      targetPort: frontend-http
+    - protocol: TCP
+      port: 10081
+      targetPort: backend-http
