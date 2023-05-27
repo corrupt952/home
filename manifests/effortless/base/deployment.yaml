@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: effortless
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: frontend
+        image: ghcr.io/corrupt952/effortless/frontend:5d07408c3628d97f23bfeb19f0d48d59148e9a20
+        ports:
+          - name: http
+            containerPort: 80
+      # - name: backend
+      #   image: ghcr.io/corrupt952/effortless/backend:latest
+      #   ports:
+      #     - name: http
+      #       containerPort: 80
+      #   envFrom:
+
