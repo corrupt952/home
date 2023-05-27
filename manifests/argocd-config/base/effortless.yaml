@@ -20,7 +20,7 @@ spec:
       helm:
         releaseName: postgresql
         valueFiles:
-        - $home/manifests/values/effortless.yaml
+        - $home/manifests/values/postgresql.yaml
     # - chart: effortless
     #   repoURL: https://charts.bitnami.com/bitnami
     #   targetRevision: 16.1.6
