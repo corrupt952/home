@@ -21,13 +21,13 @@ spec:
         releaseName: postgresql
         valueFiles:
         - $home/manifests/values/postgresql.yaml
-    # - chart: effortless
-    #   repoURL: https://charts.bitnami.com/bitnami
-    #   targetRevision: 16.1.6
-    #   helm:
-    #     releaseName: effortless
-    #     valueFiles:
-    #     - $home/manifests/values/effortless.yaml
+    - chart: redis
+      repoURL: https://charts.bitnami.com/bitnami
+      targetRevision: 17.11.3
+      helm:
+        releaseName: redis
+        # valueFiles:
+        # - $home/manifests/values/redis.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: effortless
