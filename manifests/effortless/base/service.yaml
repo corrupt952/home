@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: effortless
+spec:
+  ports:
+    - name: frontend-http
+      protocol: TCP
+      port: 10080
+      targetPort: frontend-http
+    - name: backend-http
+      protocol: TCP
+      port: 10081
+      targetPort: backend-http

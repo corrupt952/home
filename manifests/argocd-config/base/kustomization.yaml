@@ -19,3 +19,4 @@ resources:
 # Services
 - wordpress.yaml
 - revealer.yaml
+- effortless.yaml

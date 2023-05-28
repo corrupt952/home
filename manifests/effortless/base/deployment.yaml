@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: effortless
+spec:
+  replicas: 1
+  template:
+    spec:
+      imagePullSecrets:
+      - name: ghcr-credentials
+      containers:
+        - name: frontend
+          image: ghcr.io/corrupt952/effortless/frontend:b6d01bc73207b2342b0899c3159f7e29fa026781
+          ports:
+            - name: frontend-http
+              containerPort: 80
+        - name: backend
+          image: ghcr.io/corrupt952/effortless/backend:b6d01bc73207b2342b0899c3159f7e29fa026781
+          args:
+          - bundle
+          - exec
+          - puma
+          - --config
+          - config/puma.rb
+          ports:
+            - name: backend-http
+              containerPort: 3000
+          env:
+            - name: RAILS_ENV
+              value: production
+            - name: DB_HOSTNAME
+              value: postgresql.effortless.svc.cluster.local
+            - name: DB_NAME
+              value: effortless
+            - name: DB_USERNAME
+              value: effortless
+            - name: REDIS_HOST
+              value: redis-master.effortless.svc.cluster.local
+            - name: GOOGLE_CLIENT_ID
+              value: 1091821800471-a0nkacmcrk7qa5egvqk0rbk308q62r95.apps.googleusercontent.com
+          envFrom:
+            - secretRef:
+                name: effortless-credentials
