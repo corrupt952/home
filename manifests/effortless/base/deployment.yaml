@@ -11,12 +11,12 @@ spec:
       - name: ghcr-credentials
       containers:
         - name: frontend
-          image: ghcr.io/corrupt952/effortless/frontend:be997976cfa3fa1a2edb94314db31c2d85f46077
+          image: ghcr.io/corrupt952/effortless/frontend:eab7e7b815e891645201e92158ce6b3df42b6d92
           ports:
             - name: frontend-http
               containerPort: 80
         - name: backend
-          image: ghcr.io/corrupt952/effortless/backend:be997976cfa3fa1a2edb94314db31c2d85f46077
+          image: ghcr.io/corrupt952/effortless/backend:eab7e7b815e891645201e92158ce6b3df42b6d92
           args:
           - bundle
           - exec
