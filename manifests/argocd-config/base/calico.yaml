@@ -10,7 +10,7 @@ spec:
   source:
     chart: tigera-operator
     repoURL: https://docs.tigera.io/calico/charts
-    targetRevision: 3.25.1
+    targetRevision: v3.26.1
     helm:
       releaseName: calico
   destination:
