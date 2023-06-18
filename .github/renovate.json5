@@ -31,7 +31,16 @@
   platformAutomerge: true,
   packageRules: [
     {
-      matchPackagePatterns: ["cloudflare-cloudflared"],
+      matchPackagePatterns: [
+        "cloudflare/cloudflared",
+      ],
+      automerge: true,
+    },
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+      ],
       automerge: true,
     },
   ],
