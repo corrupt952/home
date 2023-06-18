@@ -1,16 +1,12 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "dependencyDashboard": true,
-  "reviewers": [
-    "@corrupt952",
-  ],
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  dependencyDashboard: true,
+  reviewers: ["@corrupt952"],
 
   // https://docs.renovatebot.com/key-concepts/scheduling/
-  "schedule": [
-    "after 9am",
-  ],
+  schedule: ["after 9am"],
 
-  "extends": [
+  extends: [
     "config:base",
 
     // https://docs.renovatebot.com/presets-default/
@@ -21,36 +17,25 @@
     // https://github.com/aquaproj/aqua-renovate-config
     "github>aquaproj/aqua-renovate-config#1.6.0",
   ],
-  "argocd": {
-    "fileMatch": [
-      "manifests/argocd-config/base/.*\\.yaml",
-    ],
+  argocd: {
+    fileMatch: ["manifests/argocd-config/base/.*\\.yaml"],
   },
-  "kubernetes": {
-    "fileMatch": [
-      "manifests/.*/base/.*\\.yaml",
-    ],
+  kubernetes: {
+    fileMatch: ["manifests/.*/base/.*\\.yaml"],
   },
-  "docker": {
-    "fileMatch": [
-      "containers/.*/Dockerfile",
-    ],
+  docker: {
+    fileMatch: ["containers/.*/Dockerfile"],
   },
 
   // Automerge
   platformAutomerge: true,
   packageRules: [
     {
-      matchPackagePatterns: [
-        "cloudflare/cloudflared",
-      ],
+      matchPackagePatterns: ["cloudflare/cloudflared"],
       automerge: true,
     },
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-      ],
+      matchUpdateTypes: ["minor", "patch", "pin", "digest"],
       automerge: true,
     },
   ],
