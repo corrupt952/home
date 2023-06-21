@@ -31,13 +31,14 @@ dashboards:
       gnetId: 2
       revision: 2
       datasource: Prometheus
-    # CoreDNS:
-    #   gnetId: 14981
-    #   revision: 2
-    #   datasource: Prometheus
-    # Node Exporter Full:
-    #   gnetId: 1860
-    #   revision: 31
+    CoreDNS:
+      gnetId: 14981
+      revision: 2
+      datasource: Prometheus
+    Node Exporter Full:
+      gnetId: 1860
+      revision: 31
+      datasource: Prometheus
     # ArgoCD:
     #   gnetId: 14584
     #   revision: 1
