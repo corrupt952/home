@@ -2,5 +2,5 @@ grafana:
   grafana.ini:
     auth.anonymous:
       enabled: true
-      org_name: zuki.dev
+      org_name: 'Main Org.'
       org_role: Admin
