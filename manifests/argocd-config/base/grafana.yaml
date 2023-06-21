@@ -11,7 +11,7 @@ spec:
     - ref: home
       repoURL: https://github.com/corrupt952/home
       targetRevision: develop/grafana
-    - chart:
+    - chart: grafana
       repoURL: https://grafana.github.io/helm-charts
       targetRevision: 6.57.3
       helm:
