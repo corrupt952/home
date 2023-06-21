@@ -13,6 +13,17 @@ datasources:
         url: http://prometheus-server.prometheus.svc.cluster.local
         isDefault: true
 
+dashboardproviders.yaml:
+  apiVersion: 1
+  providers:
+  - name: 'default'
+    orgId: 1
+    folder: 'default'
+    type: file
+    disableDeletion: true
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards/standard
 dashboards:
   default:
     prometheus-stats:
