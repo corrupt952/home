@@ -10,7 +10,7 @@ spec:
   sources:
     - ref: home
       repoURL: https://github.com/corrupt952/home
-      targetRevision: develop/grafana
+      targetRevision: develop/grafana # FIXME:
     - chart: grafana
       repoURL: https://grafana.github.io/helm-charts
       targetRevision: 6.57.3
