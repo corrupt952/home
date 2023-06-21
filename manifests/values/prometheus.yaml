@@ -421,28 +421,27 @@ serverFiles:
             action: replace
             target_label: node
 
-      # TODO: snmp scraper
-      # - job_name: 'snmp.rtx1300'
-      #   scrape_interval: 10s
-      #   static_configs:
-      #     - targets:
-      #         - 192.168.100.1 # Change to IP address of RTX1300
-      #       labels:
-      #         name: rtx1300
-      #         vendor: yamaha
-      #   params:
-      #     module:
-      #       - rtx1300
-      #   metrics_path: /snmp
-      #   relabel_configs:
-      #     - source_labels: [__address__]
-      #       target_label: __param_target
-      #     - source_labels: [__param_target]
-      #       target_label: instance
-      #     - source_labels: [type]
-      #       target_label: __param_module
-      #     - target_label: __address__
-      #       replacement: snmp-exporter.prometheus.svc.cluster.local:9116
+      - job_name: 'snmp.rtx1300'
+        scrape_interval: 10s
+        static_configs:
+          - targets:
+              - 192.168.100.1 # Change to IP address of RTX1300
+            labels:
+              name: rtx1300
+              vendor: yamaha
+        params:
+          module:
+            - rtx1300
+        metrics_path: /snmp
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - source_labels: [type]
+            target_label: __param_module
+          - target_label: __address__
+            replacement: prometheus-snmp-exporter.prometheus.svc.cluster.local:9116
 
 alertmanager:
   enabled: false
