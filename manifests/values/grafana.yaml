@@ -47,12 +47,56 @@ dashboards:
     rtx1300:
       json: |
         {
+          "__inputs": [
+            {
+              "name": "DS_PROMETHEUS",
+              "label": "Prometheus",
+              "description": "",
+              "type": "datasource",
+              "pluginId": "prometheus",
+              "pluginName": "Prometheus"
+            }
+          ],
+          "__elements": {},
+          "__requires": [
+            {
+              "type": "panel",
+              "id": "gauge",
+              "name": "Gauge",
+              "version": ""
+            },
+            {
+              "type": "grafana",
+              "id": "grafana",
+              "name": "Grafana",
+              "version": "9.5.3"
+            },
+            {
+              "type": "datasource",
+              "id": "prometheus",
+              "name": "Prometheus",
+              "version": "1.0.0"
+            },
+            {
+              "type": "panel",
+              "id": "stat",
+              "name": "Stat",
+              "version": ""
+            },
+            {
+              "type": "panel",
+              "id": "timeseries",
+              "name": "Time series",
+              "version": ""
+            }
+          ],
           "annotations": {
             "list": [
               {
                 "builtIn": 1,
                 "datasource": {
                   "type": "grafana",
+                  "uid": "-- Grafana --"
                 },
                 "enable": true,
                 "hide": true,
@@ -71,13 +115,14 @@ dashboards:
           "editable": true,
           "fiscalYearStartMonth": 0,
           "graphTooltip": 0,
-          "id": 1,
+          "id": null,
           "links": [],
           "liveNow": false,
           "panels": [
             {
               "datasource": {
                 "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
               },
               "fieldConfig": {
                 "defaults": {
@@ -120,11 +165,12 @@ dashboards:
                 },
                 "textMode": "auto"
               },
-              "pluginVersion": "9.1.8",
+              "pluginVersion": "9.5.3",
               "targets": [
                 {
                   "datasource": {
                     "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
                   },
                   "editorMode": "builder",
                   "expr": "yrfUpTime / 100",
@@ -139,6 +185,7 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
               },
               "fieldConfig": {
                 "defaults": {
@@ -237,11 +284,12 @@ dashboards:
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true
               },
-              "pluginVersion": "9.1.8",
+              "pluginVersion": "9.5.3",
               "targets": [
                 {
                   "datasource": {
                     "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
                   },
                   "editorMode": "builder",
                   "expr": "yrhMultiCpuUtil5sec",
@@ -256,6 +304,7 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
               },
               "fieldConfig": {
                 "defaults": {
@@ -383,6 +432,7 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
                   },
                   "editorMode": "builder",
                   "expr": "yrhMultiCpuUtil5sec",
@@ -397,6 +447,7 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
               },
               "fieldConfig": {
                 "defaults": {
@@ -488,6 +539,7 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
                   },
                   "editorMode": "builder",
                   "expr": "yrhMemoryUtil",
@@ -502,6 +554,7 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
               },
               "fieldConfig": {
                 "defaults": {
@@ -608,6 +661,7 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
                   },
                   "editorMode": "builder",
                   "exemplar": false,
@@ -622,6 +676,7 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
                   },
                   "editorMode": "builder",
                   "expr": "delta(ifOutOctets{ifIndex=\"2\"}[$__interval])",
@@ -637,6 +692,7 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
               },
               "fieldConfig": {
                 "defaults": {
@@ -739,6 +795,7 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
                   },
                   "editorMode": "builder",
                   "exemplar": false,
@@ -753,6 +810,7 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
+                    "uid": "${DS_PROMETHEUS}"
                   },
                   "editorMode": "builder",
                   "expr": "delta(ifOutOctets{ifIndex=\"1\"}[$__interval])",
@@ -767,7 +825,7 @@ dashboards:
             }
           ],
           "refresh": "5s",
-          "schemaVersion": 37,
+          "schemaVersion": 38,
           "style": "dark",
           "tags": [],
           "templating": {
@@ -780,6 +838,7 @@ dashboards:
           "timepicker": {},
           "timezone": "Asia/Tokyo",
           "title": "RTX1300",
-          "version": 10,
+          "uid": "eEntLKSVz",
+          "version": 1,
           "weekStart": "sunday"
         }
