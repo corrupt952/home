@@ -4,6 +4,15 @@ grafana.ini:
     org_name: 'Main Org.'
     org_role: Admin
 
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: ttp://prometheus-server.prometheus.svc.cluster.local
+        isDefault: true
+
 dashboards:
   default:
     Node Exporter Full:
