@@ -1,6 +1,6 @@
 grafana:
-  ini.auth:
-    anonymous:
+  grafana.ini:
+    auth.anonymous:
       enabled: true
       org_name: zuki.dev
       org_role: Admin
