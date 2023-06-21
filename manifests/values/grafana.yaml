@@ -5,7 +5,7 @@ grafana.ini:
     org_role: Admin
 
 dashboards:
-  Node Exporter Full:
+  NodeExporterFull:
     gnetId: 1860
     revision: 31
   CoreDNS:
