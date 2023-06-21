@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - ref: home
+      repoURL: https://github.com/corrupt952/home
+    - chart: grafana
+      repoURL: https://grafana.github.io/helm-charts
+      targetRevision: 6.57.3
+      helm:
+        releaseName: grafana
+        valueFiles:
+        - $home/manifests/values/grafana.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: grafana
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true

@@ -7,9 +7,12 @@ resources:
 - nfs-subdir-external-provisioner.yaml
 - calico.yaml
 - kubernetes-dashboard.yaml
-- metrics-server.yaml
 - sealed-secrets.yaml
 - cloudflared.yaml
+# Monitoring
+- metrics-server.yaml
+- prometheus.yaml
+- grafana.yaml
 # Argo
 - argo-cd.yaml
 - argo-events.yaml

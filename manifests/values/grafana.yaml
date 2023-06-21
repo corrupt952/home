@@ -1,0 +1,49 @@
+grafana.ini:
+  auth.anonymous:
+    enabled: true
+    org_name: 'Main Org.'
+    org_role: Admin
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.prometheus.svc.cluster.local
+        isDefault: true
+
+dashboardProviders:
+ dashboardproviders.yaml:
+   apiVersion: 1
+   providers:
+   - name: 'default'
+     orgId: 1
+     folder: ''
+     type: file
+     disableDeletion: false
+     editable: true
+     options:
+       path: /var/lib/grafana/dashboards/default
+dashboards:
+  default:
+    prometheus-stats:
+      gnetId: 2
+      revision: 2
+      datasource: Prometheus
+    CoreDNS:
+      gnetId: 14981
+      revision: 2
+      datasource: Prometheus
+    Node Exporter Full:
+      gnetId: 1860
+      revision: 31
+      datasource: Prometheus
+    # TODO: https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/
+    # ArgoCD:
+    #   gnetId: 14584
+    #   revision: 1
+    RTX1300:
+      gnetId: 19018
+      revision: 1
+      datasource: Prometheus
