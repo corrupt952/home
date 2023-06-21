@@ -45,6 +45,6 @@ dashboards:
     #   revision: 1
     # TODO: https://github.com/corrupt952/sandbox/tree/main/docker/prometheus-grafana
     RTX1300:
-      gnetId: 19017
+      gnetId: 19018
       revision: 1
       datasource: Prometheus
