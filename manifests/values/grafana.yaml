@@ -173,7 +173,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"1\"}"
+                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"1\"}"
                     },
                     "properties": [
                       {
@@ -185,7 +185,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"2\"}"
+                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"2\"}"
                     },
                     "properties": [
                       {
@@ -197,7 +197,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"3\"}"
+                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"3\"}"
                     },
                     "properties": [
                       {
@@ -209,7 +209,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"4\"}"
+                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"4\"}"
                     },
                     "properties": [
                       {
@@ -313,7 +313,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"1\"}"
+                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"1\"}"
                     },
                     "properties": [
                       {
@@ -325,7 +325,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"2\"}"
+                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"2\"}"
                     },
                     "properties": [
                       {
@@ -337,7 +337,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"3\"}"
+                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"3\"}"
                     },
                     "properties": [
                       {
@@ -349,7 +349,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"4\"}"
+                      "options": "{__name__=\"yrhMultiCpuUtil5sec\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\", yrhMultiCpuIndex=\"4\"}"
                     },
                     "properties": [
                       {
@@ -456,7 +456,7 @@ dashboards:
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "{__name__=\"yrhMemoryUtil\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"RTX1300\", vendor=\"yamaha\"}"
+                      "options": "{__name__=\"yrhMemoryUtil\", instance=\"192.168.100.1\", job=\"snmp.rtx1300\", name=\"rtx1300\", vendor=\"yamaha\"}"
                     },
                     "properties": [
                       {
