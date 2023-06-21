@@ -53,7 +53,6 @@ dashboards:
                 "builtIn": 1,
                 "datasource": {
                   "type": "grafana",
-                  "uid": "-- Grafana --"
                 },
                 "enable": true,
                 "hide": true,
@@ -79,7 +78,6 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "bQ_CKFS4z"
               },
               "fieldConfig": {
                 "defaults": {
@@ -127,7 +125,6 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "bQ_CKFS4z"
                   },
                   "editorMode": "builder",
                   "expr": "yrfUpTime / 100",
@@ -142,7 +139,6 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "bQ_CKFS4z"
               },
               "fieldConfig": {
                 "defaults": {
@@ -246,7 +242,6 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "bQ_CKFS4z"
                   },
                   "editorMode": "builder",
                   "expr": "yrhMultiCpuUtil5sec",
@@ -261,7 +256,6 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "bQ_CKFS4z"
               },
               "fieldConfig": {
                 "defaults": {
@@ -389,7 +383,6 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "bQ_CKFS4z"
                   },
                   "editorMode": "builder",
                   "expr": "yrhMultiCpuUtil5sec",
@@ -404,7 +397,6 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "bQ_CKFS4z"
               },
               "fieldConfig": {
                 "defaults": {
@@ -496,7 +488,6 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "bQ_CKFS4z"
                   },
                   "editorMode": "builder",
                   "expr": "yrhMemoryUtil",
@@ -511,7 +502,6 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "bQ_CKFS4z"
               },
               "fieldConfig": {
                 "defaults": {
@@ -618,7 +608,6 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "bQ_CKFS4z"
                   },
                   "editorMode": "builder",
                   "exemplar": false,
@@ -633,7 +622,6 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "bQ_CKFS4z"
                   },
                   "editorMode": "builder",
                   "expr": "delta(ifOutOctets{ifIndex=\"2\"}[$__interval])",
@@ -649,7 +637,6 @@ dashboards:
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "bQ_CKFS4z"
               },
               "fieldConfig": {
                 "defaults": {
@@ -752,7 +739,6 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "bQ_CKFS4z"
                   },
                   "editorMode": "builder",
                   "exemplar": false,
@@ -767,7 +753,6 @@ dashboards:
                 {
                   "datasource": {
                     "type": "prometheus",
-                    "uid": "bQ_CKFS4z"
                   },
                   "editorMode": "builder",
                   "expr": "delta(ifOutOctets{ifIndex=\"1\"}[$__interval])",
@@ -795,7 +780,6 @@ dashboards:
           "timepicker": {},
           "timezone": "Asia/Tokyo",
           "title": "RTX1300",
-          "uid": "eEntLKSVz",
           "version": 10,
           "weekStart": "sunday"
         }
