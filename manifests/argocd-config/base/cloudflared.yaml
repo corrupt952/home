@@ -10,7 +10,6 @@ spec:
   sources:
   - path: manifests/cloudflared/base
     repoURL: https://github.com/corrupt952/home
-    targetRevision: develop/cloudflared-daemon-set # FIXME:
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kube-system
