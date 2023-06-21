@@ -13,7 +13,7 @@ spec:
       targetRevision: develop/grafana # FIXME:
     - chart: grafana
       repoURL: https://grafana.github.io/helm-charts
-      targetRevision: 22.6.6
+      targetRevision: 6.57.3
       helm:
         releaseName: grafana
         valueFiles:
