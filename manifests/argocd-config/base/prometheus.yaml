@@ -10,7 +10,6 @@ spec:
   sources:
     - ref: home
       repoURL: https://github.com/corrupt952/home
-      targetRevision: develop/grafana # FIXME
     - chart: prometheus
       repoURL: https://prometheus-community.github.io/helm-charts
       targetRevision: 22.6.6
