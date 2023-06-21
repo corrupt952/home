@@ -11,6 +11,7 @@ resources:
 - cloudflared.yaml
 # Monitoring
 - metrics-server.yaml
+- prometheus.yaml
 - grafana.yaml
 # Argo
 - argo-cd.yaml
