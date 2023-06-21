@@ -1,0 +1,8 @@
+server:
+  statefulSet:
+    enabled: true
+  persistentVolume:
+    storageClass: nfs-client
+    accessModes:
+    - ReadWriteOnce
+    size: 100Gi
