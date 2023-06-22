@@ -422,7 +422,7 @@ serverFiles:
             target_label: node
 
       - job_name: 'snmp.rtx1300'
-        scrape_interval: 10s
+        scrape_interval: 30s
         static_configs:
           - targets:
               - 192.168.100.1 # Change to IP address of RTX1300
