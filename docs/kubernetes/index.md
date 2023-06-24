@@ -59,3 +59,7 @@ cloudflared --> Others
 ## Setup
 
 [Set up the kubernetes cluster](/docs/kubernetes/setup.md)
+
+## Upgrade
+
+https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/
