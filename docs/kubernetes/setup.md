@@ -19,7 +19,7 @@ I want to fix the IP address before running Ansible, so set up `netplan`.
       version: 2
       ethernets:
         eno1:
-          dhcp4: no
+          dhcp4: yes
           dhcp6: no
           routes:
           - to: default
