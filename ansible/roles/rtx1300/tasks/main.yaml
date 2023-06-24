@@ -14,18 +14,22 @@
     commands:
     # Gateway
     - ip route default gateway tunnel 1
-    # LAN
+    # Takamagahara(LAN)
     - ip {{ network.takamagahara.name }} address {{ network.takamagahara.gateway }}/24
-    # VLAN2
-    - vlan {{ network.nakatsukuni.name }} 802.1q vid=2 name=VLAN2
+    # Nakatsukuni(VLAN)
+    - vlan {{ network.nakatsukuni.name }} 802.1q vid={{ network.nakatsukuni.vid }} name={{ network.nakatsukuni.vlan_name }}
     - ip {{ network.nakatsukuni.name }} address {{ network.nakatsukuni.gateway }}/24
+    # Yomi(VLAN)
+    - vlan {{ network.yomi.name }} 802.1q vid={{ network.yomi.vid }} name={{ network.yomi.vlan_name }}
+    - ip {{ network.yomi.name }} address {{ network.yomi.gateway }}/24
     # DHCP
     - dhcp service server
     - dhcp server rfc2131 compliant except remain-silent
     - dhcp scope 1 {{ network.takamagahara.dhcp }}/24
     - dhcp scope 2 {{ network.nakatsukuni.dhcp }}/24
+    - dhcp scope 3 {{ network.yomi.dhcp }}/24
     # DNS
-    - dns host {{ network.takamagahara.name }} {{ network.nakatsukuni.name }}
+    - dns host {{ network.takamagahara.name }} {{ network.nakatsukuni.name }} {{ network.yomi.name }}
     - dns service fallback off
     - dns server {{ network.dns_servers | join(' ')}}
     - dns private address spoof on
