@@ -28,7 +28,7 @@ ONU --> Router
 %% Personal
 Router -->|"🏠 Personal Traffic"| Personal
 %% Business
-Router -->|"🏢 Business Trafic"| Business
+Router -->|"🏢 Business Traffic"| Business
 ```
 
 ### Communication between subnets
@@ -49,7 +49,7 @@ subgraph Business["Business Subnet(192.168.y.0/24)"]
 end
 
 %% Relations
-Personal x--x|"❌ Unable to commmunicate"| Business
+Personal x--x|"❌ Unable to communicate"| Business
 ```
 
 ### Wireless router

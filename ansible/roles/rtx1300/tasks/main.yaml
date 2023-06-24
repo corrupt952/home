@@ -29,7 +29,7 @@
     - dns service fallback off
     - dns server {{ network.dns_servers | join(' ')}}
     - dns private address spoof on
-    # Damones
+    # Daemons
     - l2tp service on
     - telnetd service off
     - httpd host {{ network.takamagahara.name }}
@@ -144,7 +144,7 @@
       - ipsec ike pre-shared-key 1 text {{ network.vpn.pre_shared_key }}
       - ipsec ike remote address 1 any
 
-- name: Confiure filters
+- name: Configure filters
   block:
   - name: Define filters
     yamaha_network.rtx.rtx_config:

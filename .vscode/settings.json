@@ -1,5 +1,31 @@
 {
   "cSpell.words": [
+    "takamagahara",
+    "nakatsukuni",
+    "yomi",
+    "nenokuni",
+
+    // YAMAHA Router
+    "ipip",
+    "ipcp",
+    "sftpd",
+    "snmp",
+    "proxyarp",
+    "usbhost",
+    "ipaddress",
+    "keepalive",
+    "hmac",
+    "netbios",
+    "tcpfin",
+    "nntp",
+    "tcprst",
+    "ftpdata",
+    "nolog",
+    "mschap",
+    "msext",
+    "rtadv",
+    "SSID",
+
     // Ansible
     "lineinfile",
     "endfor",
