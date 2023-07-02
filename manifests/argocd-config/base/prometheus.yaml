@@ -12,7 +12,7 @@ spec:
       repoURL: https://github.com/corrupt952/home
     - chart: prometheus
       repoURL: https://prometheus-community.github.io/helm-charts
-      targetRevision: 22.6.7
+      targetRevision: 22.7.0
       helm:
         releaseName: prometheus
         valueFiles:
