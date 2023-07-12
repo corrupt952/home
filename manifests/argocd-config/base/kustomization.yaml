@@ -6,7 +6,6 @@ resources:
 # Core
 - nfs-subdir-external-provisioner.yaml
 - calico.yaml
-- kubernetes-dashboard.yaml
 - sealed-secrets.yaml
 - cloudflared.yaml
 # Monitoring
