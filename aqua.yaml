@@ -11,7 +11,7 @@ registries:
 packages:
 - name: kubernetes/kubectl
   version: v1.25.3
-- name: ahmetb/kubectx@v0.9.4
+- name: ahmetb/kubectx@v0.9.5
 - name: argoproj/argo-cd@v2.7.7
 - name: helm/helm@v3.12.1
 - name: ahmetb/kubectx/kubens@v0.9.4
