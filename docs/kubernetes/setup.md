@@ -61,10 +61,21 @@ Run `ansible-playbook` to set up each device.
     ansible-vault decrypt --output hosts hosts.enc
     ```
 
+1. Install plugins
+
+    ```sh
+    ansible-galaxy collection install yamaha_network.rtx
+    ```
+
 1. Dry-run ansible-playbook
 
     ```sh
     ansible-playbook site.yaml -i hosts -K --check
+    ```
+
+    Specify target
+    ```sh
+    ansible-playbook site.yaml -i hosts -K --check -l 192.168.x.y
     ```
 
 1. Run ansible-playbook
