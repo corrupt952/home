@@ -8,6 +8,7 @@ resources:
 - calico.yaml
 - sealed-secrets.yaml
 - cloudflared.yaml
+- descheduler.yaml
 # Monitoring
 - metrics-server.yaml
 - prometheus.yaml
