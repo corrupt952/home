@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: headlamp
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - ref: home
+      repoURL: https://github.com/corrupt952/home
+    - chart: headlamp
+      repoURL: https://headlamp-k8s.github.io/headlamp/
+      targetRevision: 0.14.0
+      helm:
+        releaseName: headlamp
+        # valueFiles:
+        # - $home/manifests/values/headlamp.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: headlamp
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
