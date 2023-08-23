@@ -14,7 +14,7 @@ spec:
       repoURL: https://github.com/corrupt952/home
     - chart: postgresql
       repoURL: https://charts.bitnami.com/bitnami
-      targetRevision: 12.8.5
+      targetRevision: 12.9.0
       helm:
         releaseName: postgresql
         valueFiles:
