@@ -21,7 +21,7 @@ spec:
         - $home/manifests/values/postgresql.yaml
     - chart: redis
       repoURL: https://charts.bitnami.com/bitnami
-      targetRevision: 17.16.0
+      targetRevision: 17.17.1
       helm:
         releaseName: redis
         valueFiles:
