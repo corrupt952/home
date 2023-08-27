@@ -4,24 +4,24 @@ kind: Application
 metadata:
   name: metrics-server
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
-  - chart: metrics-server
-    repoURL: https://kubernetes-sigs.github.io/metrics-server/
-    targetRevision: 3.11.0
-    helm:
-      releaseName: metrics-server
-      parameters:
-      - name: args[0]
-        value: "--kubelet-insecure-tls"
+    - chart: metrics-server
+      repoURL: https://kubernetes-sigs.github.io/metrics-server/
+      targetRevision: 3.11.0
+      helm:
+        releaseName: metrics-server
+        parameters:
+          - name: args[0]
+            value: "--kubelet-insecure-tls"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kube-system
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true

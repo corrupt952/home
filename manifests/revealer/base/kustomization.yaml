@@ -5,5 +5,5 @@ namespace: revealer
 commonLabels:
   app.kubernetes.io/name: revealer
 resources:
-- deployment.yaml
-- service.yaml
+  - deployment.yaml
+  - service.yaml

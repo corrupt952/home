@@ -4,7 +4,7 @@ kind: Application
 metadata:
   name: calico
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -18,8 +18,8 @@ spec:
     namespace: tigera-operator
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
-    - ServerSideApply=true
+      - CreateNamespace=true
+      - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true

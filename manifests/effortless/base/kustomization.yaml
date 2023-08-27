@@ -6,6 +6,6 @@ commonLabels:
   app.kubernetes.io/name: effortless
   app.kubernetes.io/part-of: effortless
 resources:
-- deployment.yaml
-- sealed-secret.yaml
-- service.yaml
+  - deployment.yaml
+  - sealed-secret.yaml
+  - service.yaml

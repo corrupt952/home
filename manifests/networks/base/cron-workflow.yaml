@@ -4,52 +4,52 @@ kind: CronWorkflow
 metadata:
   name: backup
 spec:
-  timezone: 'Asia/Tokyo'
+  timezone: "Asia/Tokyo"
   schedule: "0 0 * * *"
   concurrencyPolicy: "Allow"
   startingDeadlineSeconds: 0
   workflowSpec:
     entrypoint: backup
     templates:
-    - name: backup
-      serviceAccountName: backup
-      volumes:
-      - name: playbooks
-        configMap:
-          name: backup-playbooks
-      container:
-        image: ghcr.io/corrupt952/home/ansible:85f40b4ceff32b809d507d234920ce45b2303a60
-        env:
-          - name: ANSIBLE_HOST_KEY_CHECKING
-            value: "False"
-        envFrom:
-        - secretRef:
-            name: backup-credentials
-        volumeMounts:
-        - name: playbooks
-          mountPath: /playbooks
-        command:
-        - bash
-        - -lc
-        # NOTE: When specifying an IP address directly in the i option,
-        #       a trailing comma is used to treat it as an IP address instead of a file.
-        - >-
-            ansible-playbook
-            --ssh-common-args="-o StrictHostKeyChecking=no"
-            -e "ansible_user=$BACKUP_USERNAME ansible_ssh_pass=$BACKUP_PASSWORD"
-            -i "$BACKUP_HOSTNAME,"
-            /playbooks/backup.yaml
-      outputs:
-        artifacts:
-          - name: config
-            path: /home/ansible/config.txt
-            s3:
-              endpoint: s3.dualstack.ap-northeast-1.amazonaws.com
-              bucket: khasegawa-home
-              key: backup/routers/rtx1300/config.txt
-              accessKeySecret:
+      - name: backup
+        serviceAccountName: backup
+        volumes:
+          - name: playbooks
+            configMap:
+              name: backup-playbooks
+        container:
+          image: ghcr.io/corrupt952/home/ansible:85f40b4ceff32b809d507d234920ce45b2303a60
+          env:
+            - name: ANSIBLE_HOST_KEY_CHECKING
+              value: "False"
+          envFrom:
+            - secretRef:
                 name: backup-credentials
-                key: BACKUP_AWS_ACCESS_KEY_ID
-              secretKeySecret:
-                name: backup-credentials
-                key: BACKUP_AWS_SECRET_ACCESS_KEY
+          volumeMounts:
+            - name: playbooks
+              mountPath: /playbooks
+          command:
+            - bash
+            - -lc
+            # NOTE: When specifying an IP address directly in the i option,
+            #       a trailing comma is used to treat it as an IP address instead of a file.
+            - >-
+              ansible-playbook
+              --ssh-common-args="-o StrictHostKeyChecking=no"
+              -e "ansible_user=$BACKUP_USERNAME ansible_ssh_pass=$BACKUP_PASSWORD"
+              -i "$BACKUP_HOSTNAME,"
+              /playbooks/backup.yaml
+        outputs:
+          artifacts:
+            - name: config
+              path: /home/ansible/config.txt
+              s3:
+                endpoint: s3.dualstack.ap-northeast-1.amazonaws.com
+                bucket: khasegawa-home
+                key: backup/routers/rtx1300/config.txt
+                accessKeySecret:
+                  name: backup-credentials
+                  key: BACKUP_AWS_ACCESS_KEY_ID
+                secretKeySecret:
+                  name: backup-credentials
+                  key: BACKUP_AWS_SECRET_ACCESS_KEY

@@ -4,18 +4,18 @@ kind: Application
 metadata:
   name: cloudflared
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
-  - path: manifests/cloudflared/base
-    repoURL: https://github.com/corrupt952/home
+    - path: manifests/cloudflared/base
+      repoURL: https://github.com/corrupt952/home
   destination:
     server: "https://kubernetes.default.svc"
     namespace: kube-system
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true

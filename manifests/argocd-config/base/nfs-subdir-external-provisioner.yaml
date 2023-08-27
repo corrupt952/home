@@ -4,7 +4,7 @@ kind: Application
 metadata:
   name: nfs-subdir-external-provisioner
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
@@ -14,16 +14,16 @@ spec:
     helm:
       releaseName: nfs-subdir-external-provisioner
       parameters:
-      - name: nfs.server
-        value: control-plane.local
-      - name: nfs.path
-        value: /mnt/share/nfs
+        - name: nfs.server
+          value: control-plane.local
+        - name: nfs.path
+          value: /mnt/share/nfs
   destination:
     server: "https://kubernetes.default.svc"
     namespace: default
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true

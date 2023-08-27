@@ -4,7 +4,7 @@ kind: Application
 metadata:
   name: argo-workflows
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
@@ -14,14 +14,14 @@ spec:
       helm:
         releaseName: argo-workflows
         parameters:
-        - name: server.extraArgs[0]
-          value: '--auth-mode=server'
+          - name: server.extraArgs[0]
+            value: "--auth-mode=server"
   destination:
     server: "https://kubernetes.default.svc"
     namespace: argo
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true

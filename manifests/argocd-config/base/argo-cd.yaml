@@ -4,7 +4,7 @@ kind: Application
 metadata:
   name: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
@@ -16,13 +16,13 @@ spec:
       helm:
         releaseName: argocd
         valueFiles:
-        - $home/manifests/values/argocd.yaml
+          - $home/manifests/values/argocd.yaml
   destination:
     server: "https://kubernetes.default.svc"
     namespace: argocd
   syncPolicy:
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true

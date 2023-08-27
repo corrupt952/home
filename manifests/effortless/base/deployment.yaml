@@ -8,7 +8,7 @@ spec:
   template:
     spec:
       imagePullSecrets:
-      - name: ghcr-credentials
+        - name: ghcr-credentials
       containers:
         - name: frontend
           image: ghcr.io/corrupt952/effortless/frontend:624840d1e3dd0c5cd267f30714eb33f1a1306eb0
@@ -18,11 +18,11 @@ spec:
         - name: backend
           image: ghcr.io/corrupt952/effortless/backend:624840d1e3dd0c5cd267f30714eb33f1a1306eb0
           args:
-          - bundle
-          - exec
-          - puma
-          - --config
-          - config/puma.rb
+            - bundle
+            - exec
+            - puma
+            - --config
+            - config/puma.rb
           ports:
             - name: backend-http
               containerPort: 3000
