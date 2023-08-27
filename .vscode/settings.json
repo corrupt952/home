@@ -52,19 +52,15 @@
     "br_netfilter",
     "runc",
     "keyrings",
-
-    // Argo CD
     "argocd",
     "argoproj",
     "finalizer",
-
-    // Sealed Secrets
     "kubeseal",
-
-    // Cloudflare
     "cloudflared",
-
-    // Calico
     "tigera",
-  ],
+    "descheduler",
+    "gnet",
+    "datasources",
+    "dashboardproviders"
+  ]
 }
