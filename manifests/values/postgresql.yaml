@@ -1,7 +1,0 @@
-global:
-  storageClass: nfs-client
-
-auth:
-  username: effortless
-  database: effortless
-  existingSecret: effortless-credentials
