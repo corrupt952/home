@@ -4,8 +4,9 @@ global:
 allowEmptyPassword: false
 existingSecret: wordpress-credentials
 
-accessModes:
-  - ReadWriteMany
+persistence:
+  accessModes:
+    - ReadWriteMany
 
 mariadb:
   enabled: false
