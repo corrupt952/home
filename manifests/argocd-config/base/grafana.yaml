@@ -12,7 +12,7 @@ spec:
       repoURL: https://github.com/corrupt952/home
     - chart: grafana
       repoURL: https://grafana.github.io/helm-charts
-      targetRevision: 7.0.2
+      targetRevision: 7.0.3
       helm:
         releaseName: grafana
         valueFiles:
