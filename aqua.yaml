@@ -19,4 +19,4 @@ packages:
 - name: bitnami-labs/sealed-secrets@v0.24.3
 - name: cloudflare/cloudflared
   version: 2023.5.0
-- name: argoproj/argo-workflows@v3.5.0
+- name: argoproj/argo-workflows@v3.5.1
