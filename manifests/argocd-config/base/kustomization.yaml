@@ -13,6 +13,7 @@ resources:
   - metrics-server.yaml
   - prometheus.yaml
   - grafana.yaml
+  - kubernetes-dashboard.yaml
   # Argo
   - argo-cd.yaml
   - argo-events.yaml
