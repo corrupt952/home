@@ -11,9 +11,9 @@ resources:
   - descheduler.yaml
   # Monitoring
   - metrics-server.yaml
-  - prometheus.yaml
-  - grafana.yaml
   - kubernetes-dashboard.yaml
+  # - prometheus.yaml
+  # - grafana.yaml
   # Argo
   - argo-cd.yaml
   - argo-events.yaml
