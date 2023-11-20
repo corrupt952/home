@@ -18,6 +18,8 @@ resources:
   - argo-cd.yaml
   - argo-events.yaml
   - argo-workflows.yaml
+  # Virtual machine
+  - kubevirt.yaml
   # Home Automation
   - networks.yaml
   # Services
