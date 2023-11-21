@@ -2,31 +2,31 @@
 - name: Configure kubeadm and kubelet
   become: yes
   block:
-  - name: Check for kubeadm
-    register: check_kubeadm
-    ansible.builtin.stat:
-      path: /etc/kubernetes/admin.conf
-  - name: Initialize kubeadm
-    when: not check_kubeadm.stat.exists
-    ansible.builtin.shell:
-      cmd: kubeadm init --pod-network-cidr={{ homeLab.kubernetes.network.cidr }}
-  - name: Enable service kubelet
-    ansible.builtin.systemd:
-      name: kubelet
-      state: started
-      enabled: yes
+    - name: Check for kubeadm
+      register: check_kubeadm
+      ansible.builtin.stat:
+        path: /etc/kubernetes/admin.conf
+    - name: Initialize kubeadm
+      when: not check_kubeadm.stat.exists
+      ansible.builtin.shell:
+        cmd: kubeadm init --pod-network-cidr={{ homeLab.kubernetes.network.cidr }}
+    - name: Enable service kubelet
+      ansible.builtin.systemd:
+        name: kubelet
+        state: started
+        enabled: yes
 
 - name: Copy .kube/config for root
   become: yes
   block:
-  - name: Check for .kube/config
-    register: check_kube_config
-    ansible.builtin.stat:
-      path: /root/.kube/config
-  - name: Copy to /root/.kube/config
-    when: not check_kube_config.stat.exists
-    ansible.builtin.copy:
-      remote_src: yes
-      src: /etc/kubernetes/admin.conf
-      dest: /root/.kube/config
-      backup: yes
+    - name: Check for .kube/config
+      register: check_kube_config
+      ansible.builtin.stat:
+        path: /root/.kube/config
+    - name: Copy to /root/.kube/config
+      when: not check_kube_config.stat.exists
+      ansible.builtin.copy:
+        remote_src: yes
+        src: /etc/kubernetes/admin.conf
+        dest: /root/.kube/config
+        backup: yes

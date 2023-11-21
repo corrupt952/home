@@ -12,212 +12,212 @@
   yamaha_network.rtx.rtx_config:
     save_when: "{{ network.save_when }}"
     commands:
-    # Gateway
-    - ip route default gateway tunnel 1
-    # Takamagahara(LAN)
-    - ip {{ network.takamagahara.name }} address {{ network.takamagahara.gateway }}/24
-    # Nakatsukuni(VLAN)
-    - vlan {{ network.nakatsukuni.name }} 802.1q vid={{ network.nakatsukuni.vid }} name={{ network.nakatsukuni.vlan_name }}
-    - ip {{ network.nakatsukuni.name }} address {{ network.nakatsukuni.gateway }}/24
-    # Yomi(VLAN)
-    - vlan {{ network.yomi.name }} 802.1q vid={{ network.yomi.vid }} name={{ network.yomi.vlan_name }}
-    - ip {{ network.yomi.name }} address {{ network.yomi.gateway }}/24
-    # DHCP
-    - dhcp service server
-    - dhcp server rfc2131 compliant except remain-silent
-    - dhcp scope 1 {{ network.takamagahara.dhcp }}/24
-    - dhcp scope 2 {{ network.nakatsukuni.dhcp }}/24
-    - dhcp scope 3 {{ network.yomi.dhcp }}/24
-    # DNS
-    - dns host {{ network.takamagahara.name }} {{ network.nakatsukuni.name }} {{ network.yomi.name }}
-    - dns service fallback off
-    - dns server {{ network.dns_servers | join(' ')}}
-    - dns private address spoof on
-    # Daemons
-    - l2tp service on
-    - telnetd service off
-    - httpd host {{ network.takamagahara.name }}
-    - sshd service on
-    - sshd host {{ network.takamagahara.name }}
-    - sftpd host none
-    - usbhost use on
-    # SNMP
-    - snmp host any
-    - snmp community read-only public
-    # L2MS
-    - switch control use {{ network.takamagahara.name }} on terminal=on
-    - switch control watch interval 10 3
-    # Statistics
-    - statistics traffic on
-    - statistics nat on
+      # Gateway
+      - ip route default gateway tunnel 1
+      # Takamagahara(LAN)
+      - ip {{ network.takamagahara.name }} address {{ network.takamagahara.gateway }}/24
+      # Nakatsukuni(VLAN)
+      - vlan {{ network.nakatsukuni.name }} 802.1q vid={{ network.nakatsukuni.vid }} name={{ network.nakatsukuni.vlan_name }}
+      - ip {{ network.nakatsukuni.name }} address {{ network.nakatsukuni.gateway }}/24
+      # Yomi(VLAN)
+      - vlan {{ network.yomi.name }} 802.1q vid={{ network.yomi.vid }} name={{ network.yomi.vlan_name }}
+      - ip {{ network.yomi.name }} address {{ network.yomi.gateway }}/24
+      # DHCP
+      - dhcp service server
+      - dhcp server rfc2131 compliant except remain-silent
+      - dhcp scope 1 {{ network.takamagahara.dhcp }}/24
+      - dhcp scope 2 {{ network.nakatsukuni.dhcp }}/24
+      - dhcp scope 3 {{ network.yomi.dhcp }}/24
+      # DNS
+      - dns host {{ network.takamagahara.name }} {{ network.nakatsukuni.name }} {{ network.yomi.name }}
+      - dns service fallback off
+      - dns server {{ network.dns_servers | join(' ')}}
+      - dns private address spoof on
+      # Daemons
+      - l2tp service on
+      - telnetd service off
+      - httpd host {{ network.takamagahara.name }}
+      - sshd service on
+      - sshd host {{ network.takamagahara.name }}
+      - sftpd host none
+      - usbhost use on
+      # SNMP
+      - snmp host any
+      - snmp community read-only public
+      # L2MS
+      - switch control use {{ network.takamagahara.name }} on terminal=on
+      - switch control watch interval 10 3
+      # Statistics
+      - statistics traffic on
+      - statistics nat on
 
 # 「v6プラス」固定IPサービス
 # - https://www.jpne.co.jp/service/v6plus-static/
 # - http://www.rtpro.yamaha.co.jp/RT/docs/v6plus/#setting4
 - name: Configure v6plus
   block:
-  - name: Configure v6plus
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      commands:
-      # NGN
-      - ipv6 prefix 1 ra-prefix@{{ network.nenokuni.name }}::/64
-      - ipv6 {{ network.takamagahara.name }} address ra-prefix@{{ network.nenokuni.name }}::{{ network.v6plus.interface_id }}/64
-      - ipv6 {{ network.takamagahara.name }} prefix change log on
-      - ipv6 {{ network.takamagahara.name }} rtadv send 1 o_flag=on
-      - ipv6 {{ network.takamagahara.name }} dhcp service server
-      - ipv6 {{ network.nenokuni.name }} dhcp service client ir=on
-      - lan linkup send-wait-time {{ network.nenokuni.name }} 5
-      # NAT
-      - nat descriptor type 20000 masquerade
-      - nat descriptor address outer 20000 {{ network.v6plus.ipv4 }}
-      - nat descriptor address inner 20000 auto
+    - name: Configure v6plus
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        commands:
+          # NGN
+          - ipv6 prefix 1 ra-prefix@{{ network.nenokuni.name }}::/64
+          - ipv6 {{ network.takamagahara.name }} address ra-prefix@{{ network.nenokuni.name }}::{{ network.v6plus.interface_id }}/64
+          - ipv6 {{ network.takamagahara.name }} prefix change log on
+          - ipv6 {{ network.takamagahara.name }} rtadv send 1 o_flag=on
+          - ipv6 {{ network.takamagahara.name }} dhcp service server
+          - ipv6 {{ network.nenokuni.name }} dhcp service client ir=on
+          - lan linkup send-wait-time {{ network.nenokuni.name }} 5
+          # NAT
+          - nat descriptor type 20000 masquerade
+          - nat descriptor address outer 20000 {{ network.v6plus.ipv4 }}
+          - nat descriptor address inner 20000 auto
 
-  - name: Configure IPIP for BR
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      parents:
-      - tunnel select 1
-      commands:
-      - tunnel encapsulation ipip
-      - tunnel endpoint remote address {{ network.v6plus.br_address }}
-      - ip tunnel nat descriptor 20000
-      - ip tunnel tcp mss limit auto
-      - tunnel enable 1
+    - name: Configure IPIP for BR
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        parents:
+          - tunnel select 1
+        commands:
+          - tunnel encapsulation ipip
+          - tunnel endpoint remote address {{ network.v6plus.br_address }}
+          - ip tunnel nat descriptor 20000
+          - ip tunnel tcp mss limit auto
+          - tunnel enable 1
 
 # L2TP/IPSec
 # - https://network.yamaha.com/setting/router_firewall/vpn/vpn_client/vpn-smartphone-setup_rtx1200
 - name: Configure VPN
   when:
-  - network.vpn.username != ''
-  - network.vpn.password != ''
+    - network.vpn.username != ''
+    - network.vpn.password != ''
   block:
-  - name: Configure VPN
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      commands:
-      - ip {{ network.takamagahara.name }} proxyarp on
-      - ipsec auto refresh on
-      - ipsec transport 2 1 udp 1701
-      # NAT
-      - nat descriptor masquerade incoming 20000 reject
-      - nat descriptor masquerade static 20000 1 {{ network.takamagahara.gateway }} esp
-      - nat descriptor masquerade static 20000 2 {{ network.takamagahara.gateway }} udp 500
-      - nat descriptor masquerade static 20000 3 {{ network.takamagahara.gateway }} udp 4500
+    - name: Configure VPN
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        commands:
+          - ip {{ network.takamagahara.name }} proxyarp on
+          - ipsec auto refresh on
+          - ipsec transport 2 1 udp 1701
+          # NAT
+          - nat descriptor masquerade incoming 20000 reject
+          - nat descriptor masquerade static 20000 1 {{ network.takamagahara.gateway }} esp
+          - nat descriptor masquerade static 20000 2 {{ network.takamagahara.gateway }} udp 500
+          - nat descriptor masquerade static 20000 3 {{ network.takamagahara.gateway }} udp 4500
 
-  - name: Configure L2TP
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      parents:
-      - pp select anonymous
-      commands:
-      - pp bind tunnel2
-      - pp auth request mschap-v2
-      - pp auth username {{ network.vpn.username }} {{ network.vpn.password }}
-      - ppp ipcp ipaddress on
-      - ppp ipcp msext on
-      - ppp ccp type none
-      - ip pp remote address pool dhcp
-      - ip pp mtu 1258
-      - pp enable anonymous
+    - name: Configure L2TP
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        parents:
+          - pp select anonymous
+        commands:
+          - pp bind tunnel2
+          - pp auth request mschap-v2
+          - pp auth username {{ network.vpn.username }} {{ network.vpn.password }}
+          - ppp ipcp ipaddress on
+          - ppp ipcp msext on
+          - ppp ccp type none
+          - ip pp remote address pool dhcp
+          - ip pp mtu 1258
+          - pp enable anonymous
 
-  - name: Configure L2TP Tunnel
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      parents:
-      - tunnel select 2
-      commands:
-      - tunnel encapsulation l2tp
-      - l2tp tunnel disconnect time off
-      - l2tp keepalive use on 10 3
-      - l2tp keepalive log on
-      - l2tp syslog on
-      - ip tunnel tcp mss limit auto
-      - tunnel enable 2
+    - name: Configure L2TP Tunnel
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        parents:
+          - tunnel select 2
+        commands:
+          - tunnel encapsulation l2tp
+          - l2tp tunnel disconnect time off
+          - l2tp keepalive use on 10 3
+          - l2tp keepalive log on
+          - l2tp syslog on
+          - ip tunnel tcp mss limit auto
+          - tunnel enable 2
 
-  - name: Configure L2TP Tunnel
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      parents:
-      - tunnel select 2
-      - ipsec tunnel 1
-      commands:
-      - ipsec sa policy 1 1 esp aes256-cbc sha256-hmac
-      - ipsec ike keepalive use 1 off
-      - ipsec ike nat-traversal 1 on
-      - ipsec ike pre-shared-key 1 text {{ network.vpn.pre_shared_key }}
-      - ipsec ike remote address 1 any
+    - name: Configure L2TP Tunnel
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        parents:
+          - tunnel select 2
+          - ipsec tunnel 1
+        commands:
+          - ipsec sa policy 1 1 esp aes256-cbc sha256-hmac
+          - ipsec ike keepalive use 1 off
+          - ipsec ike nat-traversal 1 on
+          - ipsec ike pre-shared-key 1 text {{ network.vpn.pre_shared_key }}
+          - ipsec ike remote address 1 any
 
 - name: Configure filters
   block:
-  - name: Define filters
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      commands:
-      - ip filter 400003 reject {{ network.takamagahara.cidr }} * * * *
-      - ip filter 400013 reject * {{ network.takamagahara.cidr }} * * *
-      - ip filter 400020 reject * * udp,tcp 135 *
-      - ip filter 400021 reject * * udp,tcp * 135
-      - ip filter 400022 reject * * udp,tcp netbios_ns-netbios_ssn *
-      - ip filter 400023 reject * * udp,tcp * netbios_ns-netbios_ssn
-      - ip filter 400024 reject * * udp,tcp 445 *
-      - ip filter 400025 reject * * udp,tcp * 445
-      - ip filter 400026 restrict * * tcpfin * www,21,nntp
-      - ip filter 400027 restrict * * tcprst * www,21,nntp
-      - ip filter 400030 pass * {{ network.takamagahara.cidr }} icmp * *
-      - ip filter 400031 pass * {{ network.takamagahara.cidr }} established * *
-      - ip filter 400032 pass * {{ network.takamagahara.cidr }} tcp * ident
-      - ip filter 400033 pass * {{ network.takamagahara.cidr }} tcp ftpdata *
-      - ip filter 400034 pass * {{ network.takamagahara.cidr }} tcp,udp * domain
-      - ip filter 400035 pass * {{ network.takamagahara.cidr }} udp domain *
-      - ip filter 400036 pass * {{ network.takamagahara.cidr }} udp * ntp
-      - ip filter 400037 pass * {{ network.takamagahara.cidr }} udp ntp *
-      - ip filter 400099 pass * * * * *
-      - ip filter 400101 pass * {{ network.takamagahara.gateway }} esp
-      - ip filter 400102 pass * {{ network.takamagahara.gateway }} udp * 500
-      - ip filter 400103 pass * {{ network.takamagahara.gateway }} udp * 4500
-      - ip filter 400104 pass * {{ network.takamagahara.gateway }} udp * 1701
-      - ip filter dynamic 400080 * * ftp
-      - ip filter dynamic 400081 * * domain
-      - ip filter dynamic 400082 * * www
-      - ip filter dynamic 400083 * * smtp
-      - ip filter dynamic 400084 * * pop3
-      - ip filter dynamic 400085 * * submission
-      - ip filter dynamic 400098 * * tcp
-      - ip filter dynamic 400099 * * udp
-      - ipv6 filter 101000 pass * * icmp6 * *
-      - ipv6 filter 101001 pass * * tcp * ident
-      - ipv6 filter 101002 pass * * udp * 546
-      - ipv6 filter 101003 pass * * 4
-      - ipv6 filter 101099 pass * * * * *
-      - ipv6 filter dynamic 101080 * * ftp
-      - ipv6 filter dynamic 101081 * * domain
-      - ipv6 filter dynamic 101082 * * www
-      - ipv6 filter dynamic 101083 * * smtp
-      - ipv6 filter dynamic 101084 * * pop3
-      - ipv6 filter dynamic 101085 * * submission
-      - ipv6 filter dynamic 101098 * * tcp
-      - ipv6 filter dynamic 101099 * * udp
-      # Takamagahara <-- reject --> Nakatsukuni
-      - ip filter 1000100 reject-nolog {{ network.nakatsukuni.cidr }} {{ network.takamagahara.cidr }} * * *
-      - ip filter 1000101 pass * * * * *
-      - ip filter 1000102 reject-nolog {{ network.takamagahara.cidr }} {{ network.nakatsukuni.cidr }} * * *
+    - name: Define filters
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        commands:
+          - ip filter 400003 reject {{ network.takamagahara.cidr }} * * * *
+          - ip filter 400013 reject * {{ network.takamagahara.cidr }} * * *
+          - ip filter 400020 reject * * udp,tcp 135 *
+          - ip filter 400021 reject * * udp,tcp * 135
+          - ip filter 400022 reject * * udp,tcp netbios_ns-netbios_ssn *
+          - ip filter 400023 reject * * udp,tcp * netbios_ns-netbios_ssn
+          - ip filter 400024 reject * * udp,tcp 445 *
+          - ip filter 400025 reject * * udp,tcp * 445
+          - ip filter 400026 restrict * * tcpfin * www,21,nntp
+          - ip filter 400027 restrict * * tcprst * www,21,nntp
+          - ip filter 400030 pass * {{ network.takamagahara.cidr }} icmp * *
+          - ip filter 400031 pass * {{ network.takamagahara.cidr }} established * *
+          - ip filter 400032 pass * {{ network.takamagahara.cidr }} tcp * ident
+          - ip filter 400033 pass * {{ network.takamagahara.cidr }} tcp ftpdata *
+          - ip filter 400034 pass * {{ network.takamagahara.cidr }} tcp,udp * domain
+          - ip filter 400035 pass * {{ network.takamagahara.cidr }} udp domain *
+          - ip filter 400036 pass * {{ network.takamagahara.cidr }} udp * ntp
+          - ip filter 400037 pass * {{ network.takamagahara.cidr }} udp ntp *
+          - ip filter 400099 pass * * * * *
+          - ip filter 400101 pass * {{ network.takamagahara.gateway }} esp
+          - ip filter 400102 pass * {{ network.takamagahara.gateway }} udp * 500
+          - ip filter 400103 pass * {{ network.takamagahara.gateway }} udp * 4500
+          - ip filter 400104 pass * {{ network.takamagahara.gateway }} udp * 1701
+          - ip filter dynamic 400080 * * ftp
+          - ip filter dynamic 400081 * * domain
+          - ip filter dynamic 400082 * * www
+          - ip filter dynamic 400083 * * smtp
+          - ip filter dynamic 400084 * * pop3
+          - ip filter dynamic 400085 * * submission
+          - ip filter dynamic 400098 * * tcp
+          - ip filter dynamic 400099 * * udp
+          - ipv6 filter 101000 pass * * icmp6 * *
+          - ipv6 filter 101001 pass * * tcp * ident
+          - ipv6 filter 101002 pass * * udp * 546
+          - ipv6 filter 101003 pass * * 4
+          - ipv6 filter 101099 pass * * * * *
+          - ipv6 filter dynamic 101080 * * ftp
+          - ipv6 filter dynamic 101081 * * domain
+          - ipv6 filter dynamic 101082 * * www
+          - ipv6 filter dynamic 101083 * * smtp
+          - ipv6 filter dynamic 101084 * * pop3
+          - ipv6 filter dynamic 101085 * * submission
+          - ipv6 filter dynamic 101098 * * tcp
+          - ipv6 filter dynamic 101099 * * udp
+          # Takamagahara <-- reject --> Nakatsukuni
+          - ip filter 1000100 reject-nolog {{ network.nakatsukuni.cidr }} {{ network.takamagahara.cidr }} * * *
+          - ip filter 1000101 pass * * * * *
+          - ip filter 1000102 reject-nolog {{ network.takamagahara.cidr }} {{ network.nakatsukuni.cidr }} * * *
 
-  - name: Attach filters
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      commands:
-      # Attach filters to Nakatsukuni
-      - ip {{ network.nakatsukuni.name }} secure filter in 1000100 1000101
-      - ip {{ network.nakatsukuni.name }} secure filter out 1000101 1000102
-      # Attach filters to Nenokuni
-      - ipv6 {{ network.nenokuni.name }} secure filter in 101000 101001 101002 101003
-      - ipv6 {{ network.nenokuni.name }} secure filter out 101099 dynamic 101080 101081 101082 101083 101084 101085 101098 101099
-  - name: Attach filters to tunnel for Nenokuni
-    yamaha_network.rtx.rtx_config:
-      save_when: "{{ network.save_when }}"
-      parents:
-      - tunnel select 1
-      commands:
-      - ip tunnel secure filter in 400003 400020 400021 400022 400023 400024 400025 400030 400032 400101 400102 400103 400104
-      - ip tunnel secure filter out 400013 400020 400021 400022 400023 400024 400025 400026 400027 400099 dynamic 400080 400081 400082 400083 400084 400085 400098 400099
+    - name: Attach filters
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        commands:
+          # Attach filters to Nakatsukuni
+          - ip {{ network.nakatsukuni.name }} secure filter in 1000100 1000101
+          - ip {{ network.nakatsukuni.name }} secure filter out 1000101 1000102
+          # Attach filters to Nenokuni
+          - ipv6 {{ network.nenokuni.name }} secure filter in 101000 101001 101002 101003
+          - ipv6 {{ network.nenokuni.name }} secure filter out 101099 dynamic 101080 101081 101082 101083 101084 101085 101098 101099
+    - name: Attach filters to tunnel for Nenokuni
+      yamaha_network.rtx.rtx_config:
+        save_when: "{{ network.save_when }}"
+        parents:
+          - tunnel select 1
+        commands:
+          - ip tunnel secure filter in 400003 400020 400021 400022 400023 400024 400025 400030 400032 400101 400102 400103 400104
+          - ip tunnel secure filter out 400013 400020 400021 400022 400023 400024 400025 400026 400027 400099 dynamic 400080 400081 400082 400083 400084 400085 400098 400099
