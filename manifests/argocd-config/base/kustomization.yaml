@@ -20,7 +20,7 @@ resources:
   - argo-workflows.yaml
   # Virtual machine
   - kubevirt.yaml
-  # - cdi.yaml
+  - cdi.yaml
   # Home Automation
   - networks.yaml
   # Services
