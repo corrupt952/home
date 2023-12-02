@@ -1,16 +1,19 @@
 global:
-  storageClass: nfs-client
+  storageClass: nfs-csi
 
 allowEmptyPassword: false
 existingSecret: wordpress-credentials
 
-# TODO: change accessModes
-# persistence:
-#   accessModes:
-#     - ReadWriteMany
+persistence:
+  accessModes:
+    - ReadWriteMany
 
 mariadb:
   enabled: false
+  primary:
+    persistence:
+      accessModes:
+        - ReadWriteMany
 
 memcached:
   enabled: false
