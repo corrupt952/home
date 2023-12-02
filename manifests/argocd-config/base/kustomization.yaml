@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: argocd
 resources:
   # Core
-  - nfs-subdir-external-provisioner.yaml
   - csi-driver-nfs.yaml
   - calico.yaml
   - sealed-secrets.yaml
