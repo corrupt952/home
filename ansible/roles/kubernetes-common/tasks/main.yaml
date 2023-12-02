@@ -27,7 +27,6 @@
           - curl
           - apt-transport-https
           - ca-certificates
-          - nfs-common
 
 - name: Configure timezone
   become: yes
