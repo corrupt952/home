@@ -23,11 +23,14 @@ subgraph k8s[Cluster]
         Node2
         NodeN
     end
+    
+    Storage["Storage"]
 end
 
 %% Relations
 Distributed --- Node1 & Node2 & NodeN
 Plane1 ~~~ Plane2 ~~~ PlaneN
+Node1 & Node2 & NodeN --- Storage
 ```
 
 ### Access from WAN
