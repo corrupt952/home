@@ -10,10 +10,6 @@ persistence:
 
 mariadb:
   enabled: false
-  primary:
-    persistence:
-      accessModes:
-        - ReadWriteMany
 
 memcached:
   enabled: false

@@ -1,7 +1,17 @@
 global:
-  storageClass: nfs-client
+  storageClass: nfs-csi
 
 auth:
   username: wordpress
   database: wordpress
   existingSecret: wordpress-credentials
+
+primary:
+  persistence:
+    accessModes:
+      - ReadWriteMany
+
+secondary:
+  persistence:
+    accessModes:
+      - ReadWriteMany
