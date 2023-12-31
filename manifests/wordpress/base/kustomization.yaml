@@ -4,3 +4,5 @@ kind: Kustomization
 namespace: wordpress
 resources:
   - sealed-secret.yaml
+patches:
+  - deployment.yaml

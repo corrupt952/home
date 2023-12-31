@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: wordpress
+          volumeMounts:
+            - mountPath: /bitnami/wordpress
+              name: wordpress-data
+              subPath: wordpress
+            - mountPath: /opt/bitnami/wordpress/ads.txt
+              name: wordpress-credentials-ads-txt
+              subPath: ads.txt
+              readOnly: true
+      volumes:
+        - name: wordpress-data
+          persistentVolumeClaim:
+            claimName: wordpress
+        - name: wordpress-credentials
+          secret:
+            secretName: wordpress-credentials
+            items:
+              - key: ads.txt
+                path: ads.txt
