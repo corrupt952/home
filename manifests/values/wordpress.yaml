@@ -32,3 +32,17 @@ extraEnvVars:
     value: "0"
   - name: PHP_MEMORY_LIMIT
     value: 2048M
+
+extraVolumeMounts:
+  - name: wordpress-credentials-ads-txt
+    mountPath: /opt/bitnami/wordpress/ads.txt
+    subPath: ads.txt
+    readOnly: true
+
+extraVolumes:
+  - name: wordpress-credentials-ads-txt
+    secret:
+      secretName: wordpress-credentials
+      items:
+        - key: ads.txt
+          path: ads.txt
