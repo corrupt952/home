@@ -10,8 +10,6 @@ spec:
   sources:
     - ref: home
       repoURL: https://github.com/corrupt952/home
-    - path: manifests/wordpress/base
-      repoURL: https://github.com/corrupt952/home
     - chart: mariadb
       repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 15.0.1
@@ -26,6 +24,8 @@ spec:
         releaseName: wordpress
         valueFiles:
           - $home/manifests/values/wordpress.yaml
+    - path: manifests/wordpress/base
+      repoURL: https://github.com/corrupt952/home
   destination:
     server: "https://kubernetes.default.svc"
     namespace: wordpress
