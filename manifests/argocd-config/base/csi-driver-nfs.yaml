@@ -12,7 +12,7 @@ spec:
       repoURL: https://github.com/corrupt952/home
     - chart: csi-driver-nfs
       repoURL: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
-      targetRevision: v4.5.0
+      targetRevision: v4.6.0
       helm:
         releaseName: csi-driver-nfs
     - path: manifests/csi-driver-nfs/base
