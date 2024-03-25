@@ -1,0 +1,37 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: labee
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - ref: home
+      repoURL: https://github.com/corrupt952/home
+    - path: manifests/labee/base
+      repoURL: https://github.com/corrupt952/home
+    - chart: mariadb
+      repoURL: https://charts.bitnami.com/bitnami
+      targetRevision: 17.0.1
+      helm:
+        releaseName: mariadb
+        valueFiles:
+          - $home/manifests/values/mariadb.yaml
+    - chart: wordpress
+      repoURL: https://charts.bitnami.com/bitnami
+      targetRevision: 21.0.6
+      helm:
+        releaseName: wordpress
+        valueFiles:
+          - $home/manifests/values/labee.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: labee
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
