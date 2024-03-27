@@ -15,7 +15,7 @@ memcached:
   enabled: false
 
 externalDatabase:
-  host: mariadb.wordpress.svc.cluster.local
+  host: mariadb.labee.svc.cluster.local
   user: wordpress
   database: wordpress
   existingSecret: wordpress-credentials
