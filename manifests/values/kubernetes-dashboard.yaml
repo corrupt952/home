@@ -5,3 +5,6 @@ extraArgs:
 
 rbac:
   clusterReadOnlyRole: "true"
+
+web.containers.args:
+  - "--enable-skip-login"
