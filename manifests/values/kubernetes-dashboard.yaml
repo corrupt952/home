@@ -8,3 +8,5 @@ rbac:
 
 web.containers.args:
   - "--enable-skip-login"
+auth.containers.args:
+  - "--enable-skip-login"
