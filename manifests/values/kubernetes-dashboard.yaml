@@ -1,12 +1,9 @@
-protocolHttp: "true"
+# FIXME: This is a workaround to enable the dashboard without login
+#        After v7.0.0, the dashboard requires login by default and remove skip login argument
+# protocolHttp: "true"
 
-extraArgs:
-  - "--enable-skip-login"
+# extraArgs:
+#   - "--enable-skip-login"
 
-rbac:
-  clusterReadOnlyRole: "true"
-
-web.containers.args:
-  - "--enable-skip-login"
-auth.containers.args:
-  - "--enable-skip-login"
+# rbac:
+#   clusterReadOnlyRole: "true"

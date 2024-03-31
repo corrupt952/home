@@ -10,7 +10,6 @@ spec:
   sources:
     - ref: home
       repoURL: https://github.com/corrupt952/home
-      targetRevision: develop/kubernetes-dashboard
     - chart: kubernetes-dashboard
       repoURL: https://kubernetes.github.io/dashboard/
       targetRevision: 7.1.3
