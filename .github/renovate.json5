@@ -4,6 +4,8 @@
     "github>corrupt952/.github:default.json5",
   ],
 
+  schedule: ["after 9am"],
+
   argocd: {
     fileMatch: ["manifests/argocd-config/base/.*\\.yaml"],
   },
@@ -19,6 +21,7 @@
   packageRules: [
     {
       matchPackagePatterns: ["cloudflare/cloudflared"],
+      minimumReleaseAge: "0 days"
       automerge: true,
     },
   ],
