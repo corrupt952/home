@@ -23,6 +23,7 @@
       matchPackagePatterns: ["cloudflare/cloudflared"],
       minimumReleaseAge: "0 days",
       automerge: true,
+      fileMatch: "manifests/cloudflared/base/daemon-set.yaml",
     },
   ],
 }
