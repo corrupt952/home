@@ -1,8 +1,6 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: [
-    "github>corrupt952/.github:default.json5",
-  ],
+  extends: ["github>corrupt952/.github:default.json5"],
 
   schedule: ["after 9am"],
 
@@ -21,9 +19,8 @@
   packageRules: [
     {
       matchPackagePatterns: ["cloudflare/cloudflared"],
-      minimumReleaseAge: "0 days",
+      minimumReleaseAge: "1 days",
       automerge: true,
-      fileMatch: "manifests/cloudflared/base/daemon-set.yaml",
     },
   ],
 }
