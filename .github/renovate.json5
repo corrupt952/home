@@ -21,7 +21,7 @@
   packageRules: [
     {
       matchPackagePatterns: ["cloudflare/cloudflared"],
-      minimumReleaseAge: "0 days"
+      minimumReleaseAge: "0 days",
       automerge: true,
     },
   ],
