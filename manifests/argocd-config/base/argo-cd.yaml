@@ -12,7 +12,7 @@ spec:
       repoURL: https://github.com/corrupt952/home
     - chart: argo-cd
       repoURL: https://argoproj.github.io/argo-helm
-      targetRevision: 7.5.2
+      targetRevision: 7.6.0
       helm:
         releaseName: argocd
         valueFiles:
