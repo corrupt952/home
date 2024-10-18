@@ -26,4 +26,3 @@ resources:
   # Services
   - wordpress.yaml
   - revealer.yaml
-  - labee.yaml
