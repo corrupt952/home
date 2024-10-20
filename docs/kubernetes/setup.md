@@ -7,6 +7,8 @@ Set up with only minimal configuration, and set up SSH public keys to be obtaine
 
 https://ubuntu.com/tutorials/install-ubuntu-server
 
+> Be sure to generate and use a password for HomeLab management
+
 ## 2. Configure static IP
 
 I want to fix the IP address before running Ansible, so set up `netplan`.
@@ -18,17 +20,15 @@ I want to fix the IP address before running Ansible, so set up `netplan`.
     network:
       version: 2
       ethernets:
-        eno1:
+        eno1: # Configure network adapter name
           dhcp4: yes
           dhcp6: no
           routes:
           - to: default
-            via: 192.168.x.1
-          # Configure Nameservers
+            via: 192.168.x.1 # Configure Gateway
           nameservers:
-            addresses: [1.1.1.1, 1.0.0.1]
-          # Configure static IP
-          addresses:
+            addresses: [1.1.1.1, 1.0.0.1] # Configure Nameservers
+          addresses: # Configure static IP
           - 192.168.x.y/24
           - 192.168.x.z/24
     ```
@@ -70,18 +70,23 @@ Run `ansible-playbook` to set up each device.
 1. Dry-run ansible-playbook
 
     ```sh
-    ansible-playbook site.yaml -i hosts -K --check
+    ansible-playbook site.yaml -i hosts --check
     ```
 
     Specify target
     ```sh
-    ansible-playbook site.yaml -i hosts -K --check -l 192.168.x.y
+    ansible-playbook site.yaml -i hosts --check -l 192.168.x.y
     ```
 
 1. Run ansible-playbook
 
     ```sh
-    ansible-playbook site.yaml -i hosts -K
+    ansible-playbook site.yaml -i hosts
+    ```
+    
+    Specify target
+    ```sh
+    ansible-playbook site.yaml -i hosts -l 192.168.x.y
     ```
 
 ## 4. Join worker nodes
