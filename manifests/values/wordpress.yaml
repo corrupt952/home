@@ -1,6 +1,7 @@
 global:
   storageClass: nfs-csi
 
+replicaCount: 3
 allowEmptyPassword: false
 existingSecret: wordpress-credentials
 
