@@ -23,7 +23,7 @@ spec:
             - --metrics
             - 0.0.0.0:2000
             - run
-          image: cloudflare/cloudflared:2025.2.1
+          image: cloudflare/cloudflared:2025.4.0
           name: cloudflared
           livenessProbe:
             httpGet:
