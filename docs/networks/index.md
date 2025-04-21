@@ -2,7 +2,7 @@
 
 ## Architecture
 
-I have set up a home network using VLANs to separate personal and business subnets.  
+The home network uses VLANs to separate personal and business subnets.
 
 ```mermaid
 graph LR
@@ -33,7 +33,7 @@ Router -->|"🏢 Business Traffic"| Business
 
 ### Communication between subnets
 
-Although not shown in the figure, communication is not allowed between each subnet.
+Communication is not allowed between subnets.
 
 ```mermaid
 graph TB
@@ -54,7 +54,7 @@ Personal x--x|"❌ Unable to communicate"| Business
 
 ### Wireless router
 
-The wireless router uses tag VLANs so that SSIDs 1 and 2 are assigned to the Personal subnet and SSID3 is assigned to the Business subnet.
+The wireless router uses tag VLANs to assign SSIDs 1 and 2 to the Personal subnet and SSID3 to the Business subnet.
 
 ```mermaid
 graph LR
