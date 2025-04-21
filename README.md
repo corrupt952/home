@@ -5,10 +5,10 @@ Repository for the network devices and a kubernetes cluster in my home.
 This repository manages the playbooks and manifests.
 
 - Router
-    - TBD
+  - TBD
 - Kubernetes
-    - Playbooks
-    - Manifests
+  - Playbooks
+  - Manifests
 
 ## Requirements
 
@@ -27,3 +27,4 @@ Before starting the setup and the operation, you need to do some preliminary pre
 - [LICENSE](/LICENSE)
 - [Network devices](/docs/networks/index.md)
 - [Kubernetes cluster](/docs/kubernetes/index.md)
+- [Peripheral devices](/docs/peripherals/index.md)
