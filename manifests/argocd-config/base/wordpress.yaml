@@ -13,7 +13,7 @@ spec:
     - path: manifests/wordpress/base
       repoURL: https://github.com/corrupt952/home
     - chart: mariadb
-      repoURL: https://charts.bitnami.com/bitnami
+      repoURL: registry-1.docker.io/bitnamicharts
       targetRevision: 20.5.7
       helm:
         releaseName: mariadb
