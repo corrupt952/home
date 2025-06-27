@@ -21,7 +21,7 @@ spec:
           - $home/manifests/values/mariadb.yaml
     - chart: wordpress
       repoURL: https://charts.bitnami.com/bitnami
-      targetRevision: 24.2.10
+      targetRevision: 24.2.11
       helm:
         releaseName: wordpress
         valueFiles:
