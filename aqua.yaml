@@ -12,7 +12,7 @@ packages:
   - name: kubernetes/kubectl
     version: v1.25.3
   - name: ahmetb/kubectx@v0.9.5
-  - name: argoproj/argo-cd@v3.0.6
+  - name: argoproj/argo-cd@v3.0.11
   - name: helm/helm@v3.18.4
   - name: ahmetb/kubectx/kubens@v0.9.5
   - name: kubernetes-sigs/kustomize@kustomize/v5.7.0
