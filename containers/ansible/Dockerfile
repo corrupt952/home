@@ -1,4 +1,4 @@
-FROM python:3.13
+FROM python:3.14
 ENV USERNAME=ansible
 RUN useradd -ms /bin/bash $USERNAME
 
