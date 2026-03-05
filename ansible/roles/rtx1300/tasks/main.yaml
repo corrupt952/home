@@ -34,7 +34,6 @@
       - dns server {{ network.dns_servers | join(' ')}}
       - dns private address spoof on
       # Daemons
-      - l2tp service on
       - telnetd service off
       - httpd host {{ network.takamagahara.name }}
       - sshd service on
@@ -85,68 +84,6 @@
           - ip tunnel tcp mss limit auto
           - tunnel enable 1
 
-# L2TP/IPSec
-# - https://network.yamaha.com/setting/router_firewall/vpn/vpn_client/vpn-smartphone-setup_rtx1200
-- name: Configure VPN
-  when:
-    - network.vpn.username != ''
-    - network.vpn.password != ''
-  block:
-    - name: Configure VPN
-      yamaha_network.rtx.rtx_config:
-        save_when: "{{ network.save_when }}"
-        commands:
-          - ip {{ network.takamagahara.name }} proxyarp on
-          - ipsec auto refresh on
-          - ipsec transport 2 1 udp 1701
-          # NAT
-          - nat descriptor masquerade incoming 20000 reject
-          - nat descriptor masquerade static 20000 1 {{ network.takamagahara.gateway }} esp
-          - nat descriptor masquerade static 20000 2 {{ network.takamagahara.gateway }} udp 500
-          - nat descriptor masquerade static 20000 3 {{ network.takamagahara.gateway }} udp 4500
-
-    - name: Configure L2TP
-      yamaha_network.rtx.rtx_config:
-        save_when: "{{ network.save_when }}"
-        parents:
-          - pp select anonymous
-        commands:
-          - pp bind tunnel2
-          - pp auth request mschap-v2
-          - pp auth username {{ network.vpn.username }} {{ network.vpn.password }}
-          - ppp ipcp ipaddress on
-          - ppp ipcp msext on
-          - ppp ccp type none
-          - ip pp remote address pool dhcp
-          - ip pp mtu 1258
-          - pp enable anonymous
-
-    - name: Configure L2TP Tunnel
-      yamaha_network.rtx.rtx_config:
-        save_when: "{{ network.save_when }}"
-        parents:
-          - tunnel select 2
-        commands:
-          - tunnel encapsulation l2tp
-          - l2tp tunnel disconnect time off
-          - l2tp keepalive use on 10 3
-          - l2tp keepalive log on
-          - l2tp syslog on
-          - ip tunnel tcp mss limit auto
-          - tunnel enable 2
-
-    - name: Configure L2TP Tunnel
-      yamaha_network.rtx.rtx_config:
-        save_when: "{{ network.save_when }}"
-        parents:
-          - tunnel select 2
-          - ipsec tunnel 1
-        commands:
-          - ipsec sa policy 1 1 esp aes256-cbc sha256-hmac
-          - ipsec ike keepalive use 1 off
-          - ipsec ike nat-traversal 1 on
-          - ipsec ike pre-shared-key 1 text {{ network.vpn.pre_shared_key }}
-          - ipsec ike remote address 1 any
 
 - name: Configure filters
   block:
@@ -173,10 +110,6 @@
           - ip filter 400036 pass * {{ network.takamagahara.cidr }} udp * ntp
           - ip filter 400037 pass * {{ network.takamagahara.cidr }} udp ntp *
           - ip filter 400099 pass * * * * *
-          - ip filter 400101 pass * {{ network.takamagahara.gateway }} esp
-          - ip filter 400102 pass * {{ network.takamagahara.gateway }} udp * 500
-          - ip filter 400103 pass * {{ network.takamagahara.gateway }} udp * 4500
-          - ip filter 400104 pass * {{ network.takamagahara.gateway }} udp * 1701
           - ip filter dynamic 400080 * * ftp
           - ip filter dynamic 400081 * * domain
           - ip filter dynamic 400082 * * www
@@ -202,6 +135,11 @@
           - ip filter 1000100 reject-nolog {{ network.nakatsukuni.cidr }} {{ network.takamagahara.cidr }} * * *
           - ip filter 1000101 pass * * * * *
           - ip filter 1000102 reject-nolog {{ network.takamagahara.cidr }} {{ network.nakatsukuni.cidr }} * * *
+          # Nakatsukuni <-- reject --> Yomi
+          - ip filter 1000103 reject-nolog {{ network.nakatsukuni.cidr }} {{ network.yomi.cidr }} * * *
+          - ip filter 1000104 reject-nolog {{ network.yomi.cidr }} {{ network.nakatsukuni.cidr }} * * *
+          # Yomi
+          - ip filter 1000110 pass * * * * *
 
     - name: Attach filters
       yamaha_network.rtx.rtx_config:
@@ -210,6 +148,9 @@
           # Attach filters to Nakatsukuni
           - ip {{ network.nakatsukuni.name }} secure filter in 1000100 1000101
           - ip {{ network.nakatsukuni.name }} secure filter out 1000101 1000102
+          # Attach filters to Yomi
+          - ip {{ network.yomi.name }} secure filter in 1000110
+          - ip {{ network.yomi.name }} secure filter out 1000110
           # Attach filters to Nenokuni
           - ipv6 {{ network.nenokuni.name }} secure filter in 101000 101001 101002 101003
           - ipv6 {{ network.nenokuni.name }} secure filter out 101099 dynamic 101080 101081 101082 101083 101084 101085 101098 101099
@@ -219,5 +160,5 @@
         parents:
           - tunnel select 1
         commands:
-          - ip tunnel secure filter in 400003 400020 400021 400022 400023 400024 400025 400030 400032 400101 400102 400103 400104
+          - ip tunnel secure filter in 400003 400020 400021 400022 400023 400024 400025 400030 400032
           - ip tunnel secure filter out 400013 400020 400021 400022 400023 400024 400025 400026 400027 400099 dynamic 400080 400081 400082 400083 400084 400085 400098 400099
