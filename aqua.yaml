@@ -16,7 +16,7 @@ packages:
   - name: helm/helm@v4.2.1
   - name: ahmetb/kubectx/kubens@v0.11.0
   - name: kubernetes-sigs/kustomize@kustomize/v5.8.1
-  - name: bitnami-labs/sealed-secrets@v0.37.0
+  - name: bitnami-labs/sealed-secrets@v0.38.1
   - name: cloudflare/cloudflared
     version: 2023.5.0
   - name: argoproj/argo-workflows@v4.0.6
