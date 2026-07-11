@@ -1,26 +1,35 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: ["github>corrupt952/renovate-config:default.json5"],
-
-  minimumReleaseAge: "7 days",
-
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'github>corrupt952/renovate-config:default.json5',
+  ],
+  minimumReleaseAge: '7 days',
   argocd: {
-    fileMatch: ["manifests/argocd-config/base/.*\\.yaml"],
+    managerFilePatterns: [
+      '/manifests/argocd-config/base/.*\\.yaml/',
+    ],
   },
   kubernetes: {
-    fileMatch: ["manifests/.*/base/.*\\.yaml"],
+    managerFilePatterns: [
+      '/manifests/.*/base/.*\\.yaml/',
+    ],
   },
-  docker: {
-    fileMatch: ["containers/.*/Dockerfile"],
-  },
-
-  // Automerge
   platformAutomerge: true,
   packageRules: [
     {
-      matchPackagePatterns: ["cloudflare/cloudflared"],
-      minimumReleaseAge: "1 days",
+      matchCategories: [
+        'docker',
+      ],
+      managerFilePatterns: [
+        '/containers/.*/Dockerfile/',
+      ],
+    },
+    {
+      minimumReleaseAge: '1 days',
       automerge: true,
+      matchPackageNames: [
+        '/cloudflare/cloudflared/',
+      ],
     },
   ],
 }
