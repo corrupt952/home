@@ -18,7 +18,7 @@ spec:
             configMap:
               name: backup-playbooks
         container:
-          image: ghcr.io/corrupt952/home/ansible:85f40b4ceff32b809d507d234920ce45b2303a60
+          image: ghcr.io/corrupt952/home/ansible:85f40b4ceff32b809d507d234920ce45b2303a60@sha256:5fdfabdec2bed4590ede71a81c61595442c96a943bc2a35ef51fe6a28a88a277
           env:
             - name: ANSIBLE_HOST_KEY_CHECKING
               value: "False"
