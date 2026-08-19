@@ -18,6 +18,7 @@ defaults:
 jobs:
   set-matrix:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -31,6 +32,7 @@ jobs:
 
   build_and_ship:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: set-matrix
     permissions:
       contents: read
