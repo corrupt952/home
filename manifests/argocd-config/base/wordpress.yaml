@@ -14,7 +14,7 @@ spec:
       repoURL: https://github.com/corrupt952/home
     - chart: mariadb
       repoURL: registry-1.docker.io/bitnamicharts
-      targetRevision: 27.3.0
+      targetRevision: 28.0.0
       helm:
         releaseName: mariadb
         valueFiles:
