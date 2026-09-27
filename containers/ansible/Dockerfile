@@ -1,4 +1,4 @@
-FROM python:3.14@sha256:4fad23465a06cc5149a541fbec6f87e234a64dc0550f6bfdd2d290d8f03240df
+FROM python:3.14@sha256:be8ccd085666c34273c9dc5607c9842f8b2e3116128aae45148ce164c07ce09d
 ENV USERNAME=ansible
 RUN useradd -ms /bin/bash $USERNAME
 
